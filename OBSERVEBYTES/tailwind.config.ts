@@ -9,9 +9,9 @@ const config: Config = {
         paper: '#F4F4EF',
         line: '#DEDED4',
         accent: {
-          DEFAULT: '#1F6F63',
-          dark: '#154F46',
-          light: '#E4EEEC'
+          DEFAULT: '#1D5C8A',
+          dark: '#123F60',
+          light: '#E3EDF5'
         },
         clay: '#C0653B',
         muted: '#5B6360'

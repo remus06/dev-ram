@@ -12,7 +12,7 @@ body {
 }
 
 ::selection {
-  background-color: #1F6F63;
+  background-color: #1D5C8A;
   color: #F4F4EF;
 }
 
@@ -29,7 +29,7 @@ a:focus-visible,
 button:focus-visible,
 input:focus-visible,
 textarea:focus-visible {
-  outline: 2px solid #1F6F63;
+  outline: 2px solid #1D5C8A;
   outline-offset: 2px;
 }
 
