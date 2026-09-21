@@ -1,0 +1,24 @@
+services:
+  observebyte:
+    build:
+      context: .
+      args:
+        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-https://observebyte.fr}
+    image: observebyte:latest
+    restart: unless-stopped
+    expose:
+      - "3000"
+    environment:
+      - RESEND_API_KEY=${RESEND_API_KEY}
+      - CONTACT_TO_EMAIL=${CONTACT_TO_EMAIL:-ramy.mahdjoubi@gmail.com}
+      - CONTACT_FROM_EMAIL=${CONTACT_FROM_EMAIL}
+      - NEXT_PUBLIC_SITE_URL=${NEXT_PUBLIC_SITE_URL:-https://observebyte.fr}
+    networks:
+      - web
+    labels:
+      caddy: observebyte.fr, www.observebyte.fr
+      caddy.reverse_proxy: "{{upstreams 3000}}"
+
+networks:
+  web:
+    external: true
