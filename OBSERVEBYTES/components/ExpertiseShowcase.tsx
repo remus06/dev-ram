@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
 import { useLanguage } from '@/lib/language-context';
 
 const GROUPS = {
@@ -40,25 +41,8 @@ const COMMANDS = [
 export function ExpertiseShowcase() {
   const { lang } = useLanguage();
   const groups = GROUPS[lang];
-  const [visible, setVisible] = useState(false);
   const [cmdIndex, setCmdIndex] = useState(0);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          obs.disconnect();
-        }
-      },
-      { threshold: 0.2 }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
+  const reduceMotion = useReducedMotion();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -68,10 +52,13 @@ export function ExpertiseShowcase() {
   }, []);
 
   return (
-    <section ref={ref} className="py-24 border-b border-line overflow-hidden">
+    <section className="py-24 border-b border-line overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div
-          className={`transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+        <motion.div
+          initial={{ opacity: 0, y: reduceMotion ? 0 : 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: reduceMotion ? 0 : 0.7, ease: 'easeOut' }}
         >
           <div className="max-w-2xl mb-12">
             <p className="text-sm font-medium text-accent mb-4">
@@ -110,7 +97,7 @@ export function ExpertiseShowcase() {
               </div>
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

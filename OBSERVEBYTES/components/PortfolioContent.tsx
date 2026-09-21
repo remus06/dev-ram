@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { ExternalLink, X, Target, Compass, Binary, TrendingUp, Send } from 'lucide-react';
 import { useLanguage } from '@/lib/language-context';
 import { getProjects } from '@/lib/projects';
@@ -12,17 +13,26 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
   const { lang } = useLanguage();
   const [imgIndex, setImgIndex] = useState(0);
   const [challenge, vision, approach] = project.story.split('||');
+  const reduceMotion = useReducedMotion();
 
   return (
-    <div
+    <motion.div
       className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-ink/90 backdrop-blur-sm"
       role="dialog"
       aria-modal="true"
       onClick={onClose}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: reduceMotion ? 0 : 0.2 }}
     >
-      <div
+      <motion.div
         className="bg-paper w-full max-w-4xl max-h-[90vh] rounded-2xl overflow-hidden shadow-2xl flex flex-col lg:flex-row relative"
         onClick={(e) => e.stopPropagation()}
+        initial={{ opacity: 0, y: reduceMotion ? 0 : 16, scale: reduceMotion ? 1 : 0.98 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        exit={{ opacity: 0, y: reduceMotion ? 0 : 16, scale: reduceMotion ? 1 : 0.98 }}
+        transition={{ duration: reduceMotion ? 0 : 0.25, ease: 'easeOut' }}
       >
         <button
           onClick={onClose}
@@ -32,8 +42,19 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
           <X className="w-5 h-5" />
         </button>
 
-        <div className="w-full lg:w-2/5 h-56 lg:h-auto relative bg-ink">
-          <Image src={project.gallery[imgIndex]} alt={project.title} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 40vw" />
+        <div className="w-full lg:w-2/5 h-56 lg:h-auto relative bg-ink overflow-hidden">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={imgIndex}
+              className="absolute inset-0"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: reduceMotion ? 0 : 0.3 }}
+            >
+              <Image src={project.gallery[imgIndex]} alt={project.title} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 40vw" />
+            </motion.div>
+          </AnimatePresence>
           <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/10 to-transparent" />
           <div className="absolute bottom-6 left-6 right-6">
             {project.status === 'in-progress' && (
@@ -115,8 +136,8 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }
 
@@ -196,7 +217,9 @@ export function PortfolioContent() {
           ))}
         </div>
 
-        {selected && <ProjectModal project={selected} onClose={() => setSelected(null)} />}
+        <AnimatePresence>
+          {selected && <ProjectModal key={selected.id} project={selected} onClose={() => setSelected(null)} />}
+        </AnimatePresence>
 
         <div className="mt-24 p-12 lg:p-16 bg-ink rounded-2xl text-center">
           <h2 className="font-display text-3xl lg:text-4xl text-paper mb-6">
