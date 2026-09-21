@@ -20,10 +20,10 @@ export function getProjects(lang: 'fr' | 'en'): Project[] {
           ? "Au sein de l'observatoire, nous avons travaillé sur un volume important de sources de données à la maille régionale pour cet inventaire historique 2008-2023.||L'enjeu quotidien est de coordonner le travail d'une grande équipe pour assurer le traitement de données et le reporting sur des secteurs clés : industrie, transports, déchets, énergie, bientôt agricole.||Je gère plusieurs bases de données, les calculs et l'automatisation des processus de quantification des émissions PES et GES, ainsi que la visualisation en dashboards."
           : "Within the observatory, we worked on a large volume of regional-scale data sources for this 2008-2023 historical inventory.||The daily challenge is coordinating a large team to ensure data processing and reporting on key sectors: industry, transport, waste, energy, soon agriculture.||I manage several databases, the calculations and automation of PES/GHG emission quantification, and the dashboard visualizations.",
       stack: ['PostgreSQL', 'PostGIS', 'Python', 'QGIS', 'PgAdmin'],
-      image: 'https://picsum.photos/seed/observebyte-atmo/1200/800',
+      image: '/portfolio/atmo-1.jpg',
       gallery: [
-        'https://picsum.photos/seed/observebyte-atmo/1200/800',
-        'https://picsum.photos/seed/observebyte-atmo-2/1200/800'
+        '/portfolio/atmo-1.jpg',
+        '/portfolio/atmo-2.jpg'
       ]
     },
     {
@@ -45,10 +45,10 @@ export function getProjects(lang: 'fr' | 'en'): Project[] {
           : 'The ambition is clear: becoming the go-to treat in Toulouse. We are building a platform for just-in-time deliveries.||The project is in build phase. The interface is fine-tuned to be as polished as the cookies themselves.||The focus is on local customer acquisition and checkout smoothness to maximize conversion.',
       stack: ['React', 'Growth', 'UI/UX', 'Analytics'],
       link: 'https://koukiz31.fr',
-      image: 'https://picsum.photos/seed/observebyte-koukiz/1200/800',
+      image: '/portfolio/koukiz-1.jpg',
       gallery: [
-        'https://picsum.photos/seed/observebyte-koukiz/1200/800',
-        'https://picsum.photos/seed/observebyte-koukiz-2/1200/800'
+        '/portfolio/koukiz-1.jpg',
+        '/portfolio/koukiz-2.jpg'
       ]
     },
     {
@@ -69,10 +69,10 @@ export function getProjects(lang: 'fr' | 'en'): Project[] {
           ? "Travailler en mer sur de la Daurade Royale demande une rigueur totale. J'ai transformé des milliers de lignes de données brutes en dashboards BI exploitables.||Le suivi de la croissance et de la santé des poissons a été automatisé pour des décisions plus rapides sur site.||En tant que responsable d'équipe de plongée, j'ai aussi coordonné les opérations sous-marines pour l'installation de récifs et de capteurs."
           : 'Working at sea on Royal Sea Bream requires total rigor. I transformed thousands of rows of raw data into actionable BI dashboards.||We automated growth and fish health tracking for faster on-site decisions.||As a diving team leader, I also coordinated underwater operations for reef and sensor installation.',
       stack: ['Power BI', 'Offshore', 'Operations', 'GreenTech'],
-      image: 'https://picsum.photos/seed/observebyte-aquadora/1200/800',
+      image: '/portfolio/aquadora-1.jpg',
       gallery: [
-        'https://picsum.photos/seed/observebyte-aquadora/1200/800',
-        'https://picsum.photos/seed/observebyte-aquadora-2/1200/800'
+        '/portfolio/aquadora-1.jpg',
+        '/portfolio/aquadora-2.jpg'
       ]
     },
     {
@@ -94,10 +94,10 @@ export function getProjects(lang: 'fr' | 'en'): Project[] {
           : 'For a service company, local visibility is vital. We are building a high-performance showcase optimized for conversion.||The build is ongoing on s-fservice.fr, with a focus on technical structure for sustainable organic ranking.||The goal: making this site the primary entry point for customers in Toulouse.',
       stack: ['React', 'SEO technique', 'Tailwind'],
       link: 'https://s-fservice.fr',
-      image: 'https://picsum.photos/seed/observebyte-sfservice/1200/800',
+      image: '/portfolio/sfservice-1.jpg',
       gallery: [
-        'https://picsum.photos/seed/observebyte-sfservice/1200/800',
-        'https://picsum.photos/seed/observebyte-sfservice-2/1200/800'
+        '/portfolio/sfservice-1.jpg',
+        '/portfolio/sfservice-2.jpg'
       ]
     },
     {
@@ -118,10 +118,10 @@ export function getProjects(lang: 'fr' | 'en'): Project[] {
           ? "Travailler avec l'Association Home a été une aventure humaine forte. Des outils ont été conçus pour sensibiliser les communautés locales aux enjeux marins.||La stratégie durable a été coordonnée en s'appuyant sur l'agenda 2063 de l'Union Africaine.||L'objectif était de créer un pont entre expertise scientifique et savoir-faire ancestral des pêcheurs."
           : "Working with Association Home was a strong human adventure. Tools were designed to raise awareness of marine issues among local communities.||The sustainable strategy was coordinated based on the African Union's 2063 agenda.||The goal was to bridge scientific expertise and the ancestral know-how of fishermen.",
       stack: ['Stratégie', 'Environnement', 'Coopération internationale'],
-      image: 'https://picsum.photos/seed/observebyte-pecheurs/1200/800',
+      image: '/portfolio/pecheurs-1.jpg',
       gallery: [
-        'https://picsum.photos/seed/observebyte-pecheurs/1200/800',
-        'https://picsum.photos/seed/observebyte-pecheurs-2/1200/800'
+        '/portfolio/pecheurs-1.jpg',
+        '/portfolio/pecheurs-2.jpg'
       ]
     }
   ];
