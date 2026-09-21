@@ -69,7 +69,7 @@ export default function HomePage() {
               {t.badge}
             </motion.p>
             <motion.h1 className="font-display text-4xl sm:text-6xl leading-[1.05] text-ink mb-8" {...fadeUp(reduceMotion, 0.08)}>
-              {t.titleA} <em className="not-italic text-accent">{t.titleHighlight}</em> {t.titleB}
+              {t.titleA} <em className="italic font-semibold text-highlight">{t.titleHighlight}</em> {t.titleB}
             </motion.h1>
             <motion.p className="text-lg text-muted leading-relaxed mb-10 max-w-xl" {...fadeUp(reduceMotion, 0.16)}>
               {t.description}
@@ -94,11 +94,19 @@ export default function HomePage() {
             {t.features.map((f, idx) => {
               const Icon = f.icon;
               return (
-                <div key={idx} className="border border-line rounded-lg p-8 bg-white/40">
+                <motion.div
+                  key={idx}
+                  className="border border-line rounded-lg p-8 bg-white/40"
+                  initial={{ opacity: 0, y: reduceMotion ? 0 : 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  whileHover={reduceMotion ? undefined : { y: -4 }}
+                  transition={{ duration: reduceMotion ? 0 : 0.4, delay: reduceMotion ? 0 : idx * 0.08, ease: 'easeOut' }}
+                >
                   <Icon className="w-8 h-8 text-accent mb-6" />
                   <h3 className="font-display text-xl text-ink mb-3">{f.title}</h3>
                   <p className="text-sm text-muted leading-relaxed">{f.desc}</p>
-                </div>
+                </motion.div>
               );
             })}
           </div>

@@ -1,13 +1,14 @@
 'use client';
 
-import { Monitor, Settings2, PieChart, CheckCircle2 } from 'lucide-react';
+import { motion, useReducedMotion } from 'framer-motion';
+import { Globe2, Workflow, BarChart3, CheckCircle2 } from 'lucide-react';
 import { useLanguage } from '@/lib/language-context';
 
 const SERVICES = {
   fr: [
     {
       title: 'BI & Dashboards',
-      icon: PieChart,
+      icon: BarChart3,
       description: 'Tableaux de bord interactifs (Power BI) pour piloter vos indicateurs en temps réel.',
       benefits: ['Aide à la décision', 'Suivi automatique', 'Visualisation claire'],
       example: 'Suivi des ventes ou indicateurs environnementaux.',
@@ -15,7 +16,7 @@ const SERVICES = {
     },
     {
       title: 'Automatisation',
-      icon: Settings2,
+      icon: Workflow,
       description: 'Automatisation de vos tâches répétitives via Python ou Excel.',
       benefits: ['Gain de productivité', 'Zéro erreur humaine', 'Flux fluides'],
       example: 'Robot de mise à jour de fichiers de suivi.',
@@ -23,7 +24,7 @@ const SERVICES = {
     },
     {
       title: 'Sites vitrines & SEO',
-      icon: Monitor,
+      icon: Globe2,
       description: 'Sites web modernes, sécurisés et optimisés pour le référencement naturel.',
       benefits: ['Visibilité professionnelle', 'Acquisition clients', 'Responsive'],
       example: "Site vitrine pour bureau d'études ou artisan.",
@@ -33,7 +34,7 @@ const SERVICES = {
   en: [
     {
       title: 'BI & Dashboards',
-      icon: PieChart,
+      icon: BarChart3,
       description: 'Interactive dashboards (Power BI) to monitor your KPIs in real time.',
       benefits: ['Decision support', 'Automatic tracking', 'Clear visualization'],
       example: 'Sales tracking or environmental indicators.',
@@ -41,7 +42,7 @@ const SERVICES = {
     },
     {
       title: 'Automation',
-      icon: Settings2,
+      icon: Workflow,
       description: 'Automation of repetitive tasks via Python or Excel.',
       benefits: ['Productivity gain', 'Zero human error', 'Seamless flows'],
       example: 'Tracking file update bot.',
@@ -49,7 +50,7 @@ const SERVICES = {
     },
     {
       title: 'Websites & SEO',
-      icon: Monitor,
+      icon: Globe2,
       description: 'Modern, secure websites optimized for organic search ranking.',
       benefits: ['Professional presence', 'Client acquisition', 'Responsive design'],
       example: 'Showcase site for consulting firms or craftspeople.',
@@ -61,6 +62,7 @@ const SERVICES = {
 export function ServicesContent() {
   const { lang } = useLanguage();
   const services = SERVICES[lang];
+  const reduceMotion = useReducedMotion();
 
   return (
     <div className="py-20">
@@ -80,7 +82,15 @@ export function ServicesContent() {
           {services.map((s, i) => {
             const Icon = s.icon;
             return (
-              <div key={i} className="border border-line rounded-lg p-8 bg-white/40 flex flex-col">
+              <motion.div
+                key={i}
+                className="border border-line rounded-lg p-8 bg-white/40 flex flex-col"
+                initial={{ opacity: 0, y: reduceMotion ? 0 : 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                whileHover={reduceMotion ? undefined : { y: -4 }}
+                transition={{ duration: reduceMotion ? 0 : 0.4, delay: reduceMotion ? 0 : i * 0.08, ease: 'easeOut' }}
+              >
                 <Icon className="w-8 h-8 text-accent mb-6" />
                 <h3 className="font-display text-2xl text-ink mb-3">{s.title}</h3>
                 <p className="text-sm text-muted leading-relaxed mb-6">{s.description}</p>
@@ -111,7 +121,7 @@ export function ServicesContent() {
                     </span>
                   ))}
                 </div>
-              </div>
+              </motion.div>
             );
           })}
         </div>

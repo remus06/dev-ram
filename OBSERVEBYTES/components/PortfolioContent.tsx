@@ -141,10 +141,18 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
   );
 }
 
-function ProjectCard({ project, onOpen }: { project: Project; onOpen: () => void }) {
+function ProjectCard({ project, onOpen, index }: { project: Project; onOpen: () => void; index: number }) {
   const { lang } = useLanguage();
+  const reduceMotion = useReducedMotion();
   return (
-    <div className="bg-white border border-line rounded-2xl overflow-hidden flex flex-col h-full group">
+    <motion.div
+      className="bg-white border border-line rounded-2xl overflow-hidden flex flex-col h-full group"
+      initial={{ opacity: 0, y: reduceMotion ? 0 : 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      whileHover={reduceMotion ? undefined : { y: -4 }}
+      transition={{ duration: reduceMotion ? 0 : 0.4, delay: reduceMotion ? 0 : (index % 2) * 0.08, ease: 'easeOut' }}
+    >
       <button onClick={onOpen} className="relative w-full h-56 text-left">
         <Image src={project.image} alt={project.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="(max-width: 768px) 100vw, 50vw" />
         <div className="absolute inset-0 bg-ink/10 group-hover:bg-ink/30 transition-colors" />
@@ -181,7 +189,7 @@ function ProjectCard({ project, onOpen }: { project: Project; onOpen: () => void
           )}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -199,9 +207,9 @@ export function PortfolioContent() {
           </p>
           <h1 className="font-display text-4xl sm:text-5xl text-ink mb-6">
             {lang === 'fr' ? (
-              <>L&rsquo;impact par <em className="not-italic text-accent">la donnée</em>.</>
+              <>L&rsquo;impact par <em className="italic font-semibold text-highlight">la donnée</em>.</>
             ) : (
-              <>Impact through <em className="not-italic text-accent">data</em>.</>
+              <>Impact through <em className="italic font-semibold text-highlight">data</em>.</>
             )}
           </h1>
           <p className="text-lg text-muted leading-relaxed">
@@ -212,8 +220,8 @@ export function PortfolioContent() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {projects.map((p) => (
-            <ProjectCard key={p.id} project={p} onOpen={() => setSelected(p)} />
+          {projects.map((p, index) => (
+            <ProjectCard key={p.id} project={p} index={index} onOpen={() => setSelected(p)} />
           ))}
         </div>
 

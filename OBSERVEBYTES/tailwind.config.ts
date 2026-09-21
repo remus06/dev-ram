@@ -14,7 +14,8 @@ const config: Config = {
           light: '#E3EDF5'
         },
         clay: '#C0653B',
-        muted: '#5B6360'
+        muted: '#5B6360',
+        highlight: '#0C3C94'
       },
       fontFamily: {
         display: ['var(--font-fraunces)', 'serif'],
