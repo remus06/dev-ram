@@ -1,0 +1,68 @@
+[
+  {
+    "slug": "hypnose",
+    "numeral": "01",
+    "title": "Hypnose",
+    "description": "Accéder à vos ressources inconscientes pour modifier des comportements limitants.",
+    "bullets": [
+      "Apaiser les émotions intenses",
+      "Dépasser un blocage inconscient",
+      "Retrouver du sens et de l'élan"
+    ]
+  },
+  {
+    "slug": "sophrologie",
+    "numeral": "02",
+    "title": "Sophrologie",
+    "description": "Harmoniser corps et mental par la respiration, la détente et la visualisation.",
+    "bullets": [
+      "Relâcher les tensions corporelles",
+      "Améliorer la concentration",
+      "Renforcer la vitalité"
+    ]
+  },
+  {
+    "slug": "stress-emotions",
+    "numeral": "03",
+    "title": "Stress & émotions",
+    "description": "Réguler l'anxiété et mieux vivre avec votre sensibilité au quotidien.",
+    "bullets": [
+      "Comprendre ses mécanismes de stress",
+      "Techniques de relaxation express",
+      "Outils concrets et autonomes"
+    ]
+  },
+  {
+    "slug": "confiance-estime-de-soi",
+    "numeral": "04",
+    "title": "Confiance & estime de soi",
+    "description": "Affirmer ses besoins avec douceur et surmonter le doute.",
+    "bullets": [
+      "Renforcer l'estime de soi",
+      "Clarifier et affirmer ses besoins",
+      "Oser être pleinement soi"
+    ]
+  },
+  {
+    "slug": "sommeil-recuperation",
+    "numeral": "05",
+    "title": "Sommeil & récupération",
+    "description": "Désactiver les ruminations nocturnes et retrouver des nuits réparatrices.",
+    "bullets": [
+      "Apaiser le mental au coucher",
+      "S'endormir sans appréhension",
+      "Améliorer la récupération"
+    ]
+  },
+  {
+    "slug": "transitions-de-vie",
+    "numeral": "06",
+    "title": "Transitions de vie",
+    "description": "Traverser un deuil, une séparation ou un changement professionnel.",
+    "bullets": [
+      "Changement professionnel serein",
+      "Séparation, rupture ou deuil",
+      "Construire un nouveau départ"
+    ]
+  }
+]

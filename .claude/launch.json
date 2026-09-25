@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "nawel-billali-site",
+      "runtimeExecutable": "C:\\Windows\\System32\\cmd.exe",
+      "runtimeArgs": ["/c", "npm", "--prefix", "NAWEL BILLALI/site", "run", "dev"],
+      "port": 3000,
+      "autoPort": true
+    }
+  ]
+}

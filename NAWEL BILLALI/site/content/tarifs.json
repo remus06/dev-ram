@@ -1,0 +1,52 @@
+[
+  {
+    "title": "Sophrologie",
+    "duration": "45 min à 1 h",
+    "price": 60,
+    "description": "Respiration, détente musculaire et visualisation pour harmoniser le corps et le mental.",
+    "recommended": true,
+    "note": "Le plus demandé"
+  },
+  {
+    "title": "Hypnose",
+    "duration": "1 h 30",
+    "price": 80,
+    "description": "Lever un blocage inconscient, apaiser une émotion, traverser un cap de vie."
+  },
+  {
+    "title": "Soins énergétiques",
+    "duration": "1 h 30*",
+    "price": 80,
+    "description": "Harmonisation globale pour libérer les mémoires corporelles et restaurer la vitalité."
+  },
+  {
+    "title": "VaguExpans",
+    "duration": "1 h",
+    "price": 80,
+    "description": "Régulation du système nerveux et du nerf vague pour désactiver le stress profond."
+  },
+  {
+    "title": "Bars Access",
+    "duration": "1 h 30*",
+    "price": 80,
+    "description": "Activation de 32 points sur la tête pour calmer le mental et les croyances limitantes."
+  },
+  {
+    "title": "Étudiant · jusqu'à 20 ans",
+    "duration": "1 h",
+    "price": 70,
+    "description": "Stress des examens, sommeil et confiance en soi, à tarif adapté."
+  },
+  {
+    "title": "Sophro Team · 2 à 4 pers.",
+    "duration": "1 h · par personne",
+    "price": 35,
+    "description": "Séance en petit groupe pour s'entraîner à la sérénité ensemble."
+  },
+  {
+    "title": "Atelier à thème",
+    "duration": "4 h",
+    "price": 90,
+    "description": "Demi-journée immersive pour approfondir une thématique bien-être."
+  }
+]
