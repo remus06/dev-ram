@@ -18,6 +18,10 @@
   --ease:cubic-bezier(.22,1,.36,1);
   --ease-in-out:cubic-bezier(.76,0,.24,1);
   --poster:url("hero-poster.jpg");
+  --ink-soft:#6e5d50;
+  --paper:#f6efe5;
+  --sand-2:#ece2d4;
+  --line:rgba(43,33,26,.14);
 }
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
@@ -124,6 +128,116 @@ body.menu-open{overflow:hidden}
 .menu__foot .btn-play{display:inline-block;padding:.95rem 1.6rem;font-size:1rem}
 .menu__foot .tel{font-family:"Instrument Serif",Georgia,serif;font-size:1.35rem}
 
+
+/* ---------- social icons ---------- */
+.social{display:flex;gap:.15rem;list-style:none;margin:0;padding:0}
+.social a{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;transition:background-color .4s var(--ease),transform .4s var(--ease),color .4s}
+.social a:hover{background:rgba(43,33,26,.08);transform:translateY(-2px);color:var(--ember)}
+.social svg{width:19px;height:19px}
+.nav__right .social{margin-right:.4rem}
+.menu__social{margin-top:1.6rem}
+.menu__social a{width:46px;height:46px;border:1px solid rgba(43,33,26,.16)}
+
+/* ---------- shared section system ---------- */
+.wrap{max-width:1320px;margin:0 auto;padding:0 var(--pad-x)}
+.eyebrow{font-size:.74rem;letter-spacing:.24em;text-transform:uppercase;font-weight:500;color:var(--ink-soft)}
+.h2{font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-size:clamp(2.4rem,4.6vw,4.4rem);line-height:1.02;letter-spacing:-.01em;margin:.9rem 0 1.4rem}
+.h2 em{color:var(--ember)}
+.lead{color:var(--ink-soft);font-size:1.06rem;line-height:1.7;max-width:34rem}
+.rv{opacity:0;transform:translateY(34px);filter:blur(6px);transition:opacity 1.3s var(--ease),transform 1.3s var(--ease),filter 1.3s var(--ease)}
+.rv.in{opacity:1;transform:none;filter:none}
+.rv.s1{transition-delay:.1s}.rv.s2{transition-delay:.2s}.rv.s3{transition-delay:.3s}.rv.s4{transition-delay:.4s}
+.btn-line{display:inline-flex;align-items:center;gap:.7rem;padding:.85rem 1.3rem;border-radius:999px;border:1px solid rgba(43,33,26,.22);font-size:.95rem;
+  transition:background-color .45s var(--ease),color .45s,border-color .45s,gap .45s var(--ease)}
+.btn-line:hover{background:var(--ink);color:#f6eee3;border-color:var(--ink);gap:1rem}
+.btn-line svg{width:18px;height:18px}
+
+/* marquee */
+.marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;padding:1.6rem 0;background:var(--paper)}
+.track{display:flex;gap:3.2rem;width:max-content;white-space:nowrap;align-items:center;animation:mq 42s linear infinite;
+  font-family:"Instrument Serif",Georgia,serif;font-style:italic;font-size:clamp(1.6rem,2.4vw,2.2rem)}
+.track i{width:6px;height:6px;border-radius:50%;background:var(--ember);opacity:.7}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* approach */
+.approach{padding:clamp(5rem,12vw,9rem) 0;background:var(--paper)}
+.approach .wrap{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(2rem,7vw,7rem);align-items:start}
+.quote{font-family:"Instrument Serif",Georgia,serif;font-style:italic;font-size:clamp(1.5rem,2.3vw,2rem);line-height:1.3;border-left:1px solid var(--ember);padding-left:1.4rem;margin:2rem 0}
+.sign{display:flex;align-items:baseline;gap:1rem;margin-top:1.6rem}
+.sign b{font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-style:italic;font-size:1.9rem}
+.sign span{font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft)}
+
+/* fields */
+.fields{padding:clamp(5rem,11vw,8.5rem) 0;background:var(--sand-2)}
+.fields-head{display:flex;justify-content:space-between;align-items:end;gap:2rem;margin-bottom:2.6rem;flex-wrap:wrap}
+.row{display:grid;grid-template-columns:5rem 1fr 1.15fr 3.2rem;align-items:center;gap:1.6rem;padding:2rem 0;border-top:1px solid var(--line);position:relative}
+.row:last-child{border-bottom:1px solid var(--line)}
+.row::before{content:"";position:absolute;inset:0 calc(var(--pad-x)*-.5);background:var(--paper);border-radius:14px;transform:scaleY(0);transform-origin:bottom;transition:transform .7s var(--ease);z-index:0}
+.row:hover::before{transform:scaleY(1)}
+.row>*{position:relative;z-index:1}
+.row .num{font-family:"Instrument Serif",Georgia,serif;font-size:1.25rem;color:var(--ember)}
+.row h3{font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-size:clamp(1.8rem,3vw,2.7rem);line-height:1;margin:0;transition:transform .7s var(--ease)}
+.row:hover h3{transform:translateX(12px);font-style:italic}
+.row p{margin:0;color:var(--ink-soft);font-size:1rem;line-height:1.6}
+.row .go{width:3.2rem;height:3.2rem;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;font-size:1.1rem;transition:background-color .5s,color .5s,transform .7s var(--ease),border-color .5s}
+.row:hover .go{background:var(--ember);border-color:var(--ember);color:#fff;transform:rotate(-45deg)}
+
+/* cabinet */
+.cabinet{padding:clamp(5rem,12vw,9rem) 0;background:var(--paper)}
+.cabinet .wrap{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(2rem,7vw,6.5rem);align-items:center}
+.cab-media{position:relative;border-radius:999px 999px 18px 18px;overflow:hidden;aspect-ratio:7/6;clip-path:inset(10% 10% 10% 10% round 24px);transition:clip-path 1.6s var(--ease)}
+.cab-media.in{clip-path:inset(0 0 0 0 round 0)}
+.cab-media img{position:absolute;inset:-8% 0;width:100%;height:116%;object-fit:cover;will-change:transform}
+.cab-tag{position:absolute;left:1.2rem;bottom:1.2rem;background:rgba(246,239,229,.92);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-radius:12px;padding:.7rem 1rem;font-size:.85rem;line-height:1.4}
+.cab-tag b{display:block;font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-size:1.25rem}
+.info{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem 2rem;margin:2rem 0 2.2rem;padding:1.6rem 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.info dt{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:.4rem}
+.info dd{margin:0;line-height:1.6}
+.info dd a{border-bottom:1px solid rgba(43,33,26,.25)}
+.go-btns{display:flex;gap:.7rem;flex-wrap:wrap}
+
+/* reviews */
+.reviews{padding:clamp(5rem,11vw,8.5rem) 0 clamp(4rem,9vw,7rem);background:var(--sand-2);overflow:hidden}
+.score{display:flex;align-items:center;gap:1.1rem;margin-top:.4rem}
+.score b{font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-size:clamp(3rem,6vw,4.6rem);line-height:1}
+.score .stars{font-size:1.25rem}
+.score small{display:block;color:var(--ink-soft);font-size:.9rem;margin-top:.2rem}
+.stars{color:#c98a3d;letter-spacing:.12em}
+.rtrack-wrap{margin-top:3rem;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.rtrack{display:flex;gap:1.4rem;width:max-content;animation:mq 70s linear infinite}
+.rtrack-wrap:hover .rtrack{animation-play-state:paused}
+.review{margin:0;width:min(380px,78vw);flex:0 0 auto;background:var(--paper);border-radius:20px;padding:1.6rem 1.6rem 1.4rem;display:flex;flex-direction:column;gap:1rem;
+  box-shadow:0 1px 0 rgba(43,33,26,.04),0 18px 40px -28px rgba(43,33,26,.35)}
+.review blockquote{margin:0;font-family:"Instrument Serif",Georgia,serif;font-size:1.22rem;line-height:1.38;flex:1}
+.review figcaption{font-size:.92rem;font-weight:500;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:.9rem}
+.review figcaption span{font-weight:400;font-size:.78rem;color:var(--ink-soft);letter-spacing:.06em}
+.reviews .go-btns{margin-top:2.6rem;justify-content:center}
+
+/* contact */
+.contact{background:var(--ink);color:#efe5d8;padding:clamp(5rem,11vw,8.5rem) 0 2.5rem}
+.contact .eyebrow{color:#a99a8b}
+.contact .h2 em{color:#e09a6c}
+.contact .top{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:clamp(2rem,6vw,5rem)}
+.contact .col p{color:#cdbfb0;line-height:1.7;margin:.8rem 0 0}
+.contact .big{font-family:"Instrument Serif",Georgia,serif;font-size:2rem;display:block;margin-top:.7rem;color:#f6eee3}
+.contact .btn-play{background:#e09a6c;color:var(--ink);display:inline-block;margin-top:1.8rem}
+.contact .btn-line{border-color:rgba(239,229,216,.25);color:#efe5d8}
+.contact .btn-line:hover{background:#efe5d8;color:var(--ink)}
+.contact .social a{border:1px solid rgba(239,229,216,.2);width:44px;height:44px}
+.contact .social a:hover{background:rgba(239,229,216,.1);color:#e09a6c}
+.giant{font-family:"Instrument Serif",Georgia,serif;font-size:15vw;line-height:.8;letter-spacing:-.03em;color:rgba(239,229,216,.06);white-space:nowrap;margin:5rem 0 0 -.06em;user-select:none}
+.giant em{color:rgba(224,154,108,.13)}
+.foot{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;padding-top:1.4rem;border-top:1px solid rgba(239,229,216,.12);font-size:.82rem;color:#988a7c}
+
+@media (max-width:1200px){.nav__right .social{display:none}}
+@media (max-width:900px){
+  .approach .wrap,.cabinet .wrap,.contact .top{grid-template-columns:1fr}
+  .row{grid-template-columns:3rem 1fr;gap:.6rem 1rem}
+  .row p{grid-column:2}
+  .row .go{display:none}
+  .info{grid-template-columns:1fr}
+}
+
 /* ---------- RESPONSIVE ---------- */
 @media (max-width:900px){
   .nav__links,.nav__right .btn-play{display:none}
@@ -157,6 +271,8 @@ body.menu-open{overflow:hidden}
   .hero__media{opacity:1;transform:none;filter:none}
   .line>span{transform:none;opacity:1}
   .rise{opacity:1;transform:none}
+  .rv{opacity:1;transform:none;filter:none}
+  .cab-media{clip-path:none}
 }
 </style>
 </head>
@@ -174,13 +290,14 @@ body.menu-open{overflow:hidden}
     <a class="logo rise d1" href="#" aria-label="Alliance Corps Esprit — accueil">Alliance <em>Corps</em> Esprit</a>
     <nav aria-label="Principale">
       <ul class="nav__links">
-        <li class="rise d2"><a href="#cabinet">Le cabinet</a></li>
-        <li class="rise d3"><a href="#sophrologie">Sophrologie</a></li>
-        <li class="rise d4"><a href="#hypnose">Hypnose</a></li>
+        <li class="rise d2"><a href="#approche">Approche</a></li>
+        <li class="rise d3"><a href="#cabinet">Le cabinet</a></li>
+        <li class="rise d4"><a href="#avis">Avis</a></li>
         <li class="rise d5"><a href="#contact">Contact</a></li>
       </ul>
     </nav>
     <div class="nav__right">
+      <ul class="social rise d6"><li><a href="#" aria-label="Instagram" data-todo="lien Instagram à fournir"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.2" y="3.2" width="17.6" height="17.6" rx="5" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4.1" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor"/></svg></a></li><li><a href="#" aria-label="TikTok" data-todo="lien TikTok à fournir"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.4 3c.3 2.1 1.7 3.6 3.6 3.8v3a6.9 6.9 0 0 1-3.6-1.1v6.4A5.9 5.9 0 1 1 10.5 9.2c.3 0 .6 0 .9.1v3.2a2.7 2.7 0 1 0 1.9 2.6V3h3.1Z"/></svg></a></li><li><a href="https://www.facebook.com/Alliance-Corps-Esprit-314572278901977/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M13.6 21v-7.6h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.6-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.1H8v3h2.6V21h3Z"/></svg></a></li><li><a href="https://wa.me/33676486927" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" d="M4 20l1.2-3.9A8.4 8.4 0 1 1 8.3 19L4 20Z"/><path fill="currentColor" d="M9.2 7.6c.3-.3.8-.3 1 .1l.9 1.9c.1.3 0 .6-.2.8l-.6.7c.6 1.2 1.6 2.2 2.8 2.8l.7-.6c.2-.2.5-.3.8-.2l1.9.9c.4.2.5.7.2 1l-.8.9c-.4.4-1 .6-1.6.4-2.8-.9-5-3.1-5.9-5.9-.2-.6 0-1.2.4-1.6l.4-.2Z"/></svg></a></li></ul>
       <a class="btn-play rise d6" href="https://liberlo.com/profil/nawal-billali">Prendre rendez-vous</a>
       <button class="burger rise d6" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
     </div>
@@ -198,12 +315,100 @@ body.menu-open{overflow:hidden}
   </div>
 </section>
 
+<div class="marquee" aria-hidden="true"><div class="track">
+  <span>Sophrologie</span><i></i><span>Hypnose ericksonienne</span><i></i><span>Méthode Vittoz</span><i></i><span>Access Bars</span><i></i><span>DEEPLI</span><i></i><span>Relation d'aide</span><i></i>
+  <span>Sophrologie</span><i></i><span>Hypnose ericksonienne</span><i></i><span>Méthode Vittoz</span><i></i><span>Access Bars</span><i></i><span>DEEPLI</span><i></i><span>Relation d'aide</span><i></i>
+</div></div>
+
+<section class="approach" id="approche">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow rv">Mon approche</span>
+      <h2 class="h2 rv s1">Se libérer de ce qui pèse,<br><em>retrouver son équilibre.</em></h2>
+    </div>
+    <div>
+      <p class="lead rv s1">J'accompagne celles et ceux qui ressentent le besoin de se libérer de schémas limitants, de tensions enfouies et de blocages émotionnels. Praticienne en thérapie brève orientée solution et en relation d'aide, j'ai d'abord rencontré la sophrologie pour mes propres douleurs : un meilleur sommeil, moins de stress, un corps apaisé.</p>
+      <p class="quote rv s2">« Le chemin pour entrer en amitié avec soi. »</p>
+      <p class="lead rv s3">Hypnose ericksonienne, sophrologie, méthode Vittoz, Access Bars, DEEPLI : des outils choisis pour tenir compte de l'être dans sa globalité.</p>
+      <div class="sign rv s4"><b>Nawal Billali</b><span>Sophrologue · Hypnologue</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="fields" id="champs">
+  <div class="wrap">
+    <div class="fields-head">
+      <div><span class="eyebrow rv">Champs d'action</span><h2 class="h2 rv s1">Ce que nous pouvons<br><em>travailler ensemble</em></h2></div>
+      <p class="lead rv s2" style="max-width:24rem">Chaque accompagnement commence par un premier échange pour comprendre votre demande.</p>
+    </div>
+    <div class="row rv"><span class="num">01</span><h3>Prophylaxie</h3><p>Préserver sa santé, retrouver un état de bien-être, vivre en conscience et devenir plus présent à soi et aux autres.</p><span class="go">→</span></div>
+    <div class="row rv s1"><span class="num">02</span><h3>Développement personnel</h3><p>Oser vivre pleinement sa vie, renforcer sa confiance en soi et son image, prendre la parole avec aisance.</p><span class="go">→</span></div>
+    <div class="row rv s2"><span class="num">03</span><h3>Pédagogie</h3><p>Améliorer sa concentration, sa mémoire, ses performances intellectuelles et physiques, se préparer à un examen.</p><span class="go">→</span></div>
+    <div class="row rv s3"><span class="num">04</span><h3>Thérapie</h3><p>Troubles anxieux, alimentaires, du sommeil, addictions, mal-être, douleurs, acouphènes, vertiges, hyperacousie.</p><span class="go">→</span></div>
+  </div>
+</section>
+
+<section class="cabinet" id="cabinet">
+  <div class="wrap">
+    <div class="cab-media" id="cabMedia">
+      <img id="cabImg" src="cabinet.jpg" alt="Le cabinet de Nawal Billali à La Destrousse : table de soin, orchidée, plantes et lumière douce" loading="lazy">
+      <div class="cab-tag"><b>Le cabinet</b>La Destrousse · près d'Aubagne</div>
+    </div>
+    <div>
+      <span class="eyebrow rv">Le lieu</span>
+      <h2 class="h2 rv s1">Un espace calme,<br><em>pour se déposer.</em></h2>
+      <p class="lead rv s2">Un cabinet lumineux et apaisant, avec parking visiteurs gratuit, à quelques minutes d'Aubagne.</p>
+      <dl class="info rv s3">
+        <div><dt>Adresse</dt><dd>Résidence La Verrerie, Bât. A<br>13112 La Destrousse</dd></div>
+        <div><dt>Horaires</dt><dd>Mardi — jeudi : 9h00 – 19h00<br>Samedi : 9h30 – 18h00<br>Uniquement sur rendez-vous</dd></div>
+        <div><dt>Téléphone</dt><dd><a href="tel:0676486927">06 76 48 69 27</a></dd></div>
+        <div><dt>Stationnement</dt><dd>Parking visiteurs gratuit</dd></div>
+      </dl>
+      <div class="go-btns rv s4">
+        <a class="btn-line" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.3752237%2C5.6071947" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.6" d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.3" fill="none" stroke="currentColor" stroke-width="1.6"/></svg> Itinéraire Google Maps</a>
+        <a class="btn-line" href="https://waze.com/ul?ll=43.3752237%2C5.6071947&amp;navigate=yes" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" d="M20 4 4 10.5l7 2.5 2.5 7L20 4Z"/></svg> Ouvrir dans Waze</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="reviews" id="avis">
+  <div class="wrap">
+    <span class="eyebrow rv">Avis Google</span>
+    <h2 class="h2 rv s1">Ils en <em>parlent</em> mieux que moi.</h2>
+    <div class="score rv s2"><b>5,0</b><div><div class="stars" aria-label="Note moyenne 5 sur 5">★★★★★</div><small>17 avis sur Google</small></div></div>
+  </div>
+  <div class="rtrack-wrap rv s3"><div class="rtrack"><figure class="review"><div class="stars" aria-label="5 étoiles sur 5">★★★★★</div><blockquote>« Je recommande vivement Nawal c’est une thérapeute exceptionnelle elle est à l’écoute et sa thérapie permet de se sentir vraiment mieux dès la 1 ère séance. Elle n’oblige en rien au niveau du nombre de séances quand on se sent mieux on n’y va plus. Elle a su m’apaiser et m’enlever les angoisses que j’avais depuis plus de 10 ans. »</blockquote><figcaption>Nathalie R.<span>Avis Google</span></figcaption></figure><figure class="review"><div class="stars" aria-label="5 étoiles sur 5">★★★★★</div><blockquote>« Je recommande vivement cette hypnothérapeute ! C’est une professionnelle d’une grande compétence, à l’écoute, bienveillante et profondément humaine. Elle prend le temps de comprendre, d’expliquer et d’accompagner avec beaucoup de douceur et justesse. Je recommande les yeux fermés ! »</blockquote><figcaption>Elisabeth M.<span>Avis Google</span></figcaption></figure><figure class="review"><div class="stars" aria-label="5 étoiles sur 5">★★★★★</div><blockquote>« J ai consultée pour une simple séance et l incroyable a eu lieu une vraie libération suite à un soin quantique. Une thérapeute passionnée, profondément humaine qui ne regarde pas le temps mais le besoin, une écoute dans le respect de la personne et une grande disponibilité dans le suivi . »</blockquote><figcaption>Sonia D.<span>Avis Google</span></figcaption></figure><figure class="review"><div class="stars" aria-label="5 étoiles sur 5">★★★★★</div><blockquote>« Personne dotée d'une bienveillance et d'une énergie positive qui vous met en confiance. Son travail effectué sur moi depuis 3 séances a été très efficace. Sérénité, sommeil, énergie vitale. Je la remercie du fond du coeur. »</blockquote><figcaption>Pistach S.<span>Avis Google</span></figcaption></figure><figure class="review"><div class="stars" aria-label="5 étoiles sur 5">★★★★★</div><blockquote>« Nawel est une personne solaire qui me suit depuis maintenant ... Beaucoup d'années ! A l'écoute, douce et pertinente, je vais continuer de la consulter encore bien longtemps ! »</blockquote><figcaption>Sébastien T.<span>Avis Google</span></figcaption></figure><figure class="review"><div class="stars" aria-label="5 étoiles sur 5">★★★★★</div><blockquote>« Nawal est très à l'écoute et bienveillante. Je suis extrêmement reconnaissante qu'on me l'ai recommandée car c'est une praticienne incroyable ! Je la recommande les yeux fermés ! »</blockquote><figcaption>Marion A.<span>Avis Google</span></figcaption></figure><figure class="review"><div class="stars" aria-label="5 étoiles sur 5">★★★★★</div><blockquote>« Praticienne découverte, par hasard, je l'ai conseillée à plusieurs personnes qui sont enthousiastes comme moi au sujet de Nawel et du bien-être éprouvé après une séance chez elle. Cette personne vous veut et vous fait du bien. »</blockquote><figcaption>AnneC T.<span>Avis Google</span></figcaption></figure><figure class="review"><div class="stars" aria-label="5 étoiles sur 5">★★★★★</div><blockquote>« Je recommande cette praticienne très compétente et à l écoute de ses patients. Son travail est remarquable, j ai pu voir l amélioration au fil des séances et une libération de mes souffrances enchaînées. Merci Nawel »</blockquote><figcaption>Chris L.<span>Avis Google</span></figcaption></figure><figure class="review" aria-hidden="true"><div class="stars" aria-label="5 étoiles sur 5">★★★★★</div><blockquote>« Je recommande vivement Nawal c’est une thérapeute exceptionnelle elle est à l’écoute et sa thérapie permet de se sentir vraiment mieux dès la 1 ère séance. Elle n’oblige en rien au niveau du nombre de séances quand on se sent mieux on n’y va plus. Elle a su m’apaiser et m’enlever les angoisses que j’avais depuis plus de 10 ans. »</blockquote><figcaption>Nathalie R.<span>Avis Google</span></figcaption></figure><figure class="review" aria-hidden="true"><div class="stars" aria-label="5 étoiles sur 5">★★★★★</div><blockquote>« Je recommande vivement cette hypnothérapeute ! C’est une professionnelle d’une grande compétence, à l’écoute, bienveillante et profondément humaine. Elle prend le temps de comprendre, d’expliquer et d’accompagner avec beaucoup de douceur et justesse. Je recommande les yeux fermés ! »</blockquote><figcaption>Elisabeth M.<span>Avis Google</span></figcaption></figure><figure class="review" aria-hidden="true"><div class="stars" aria-label="5 étoiles sur 5">★★★★★</div><blockquote>« J ai consultée pour une simple séance et l incroyable a eu lieu une vraie libération suite à un soin quantique. Une thérapeute passionnée, profondément humaine qui ne regarde pas le temps mais le besoin, une écoute dans le respect de la personne et une grande disponibilité dans le suivi . »</blockquote><figcaption>Sonia D.<span>Avis Google</span></figcaption></figure><figure class="review" aria-hidden="true"><div class="stars" aria-label="5 étoiles sur 5">★★★★★</div><blockquote>« Personne dotée d'une bienveillance et d'une énergie positive qui vous met en confiance. Son travail effectué sur moi depuis 3 séances a été très efficace. Sérénité, sommeil, énergie vitale. Je la remercie du fond du coeur. »</blockquote><figcaption>Pistach S.<span>Avis Google</span></figcaption></figure><figure class="review" aria-hidden="true"><div class="stars" aria-label="5 étoiles sur 5">★★★★★</div><blockquote>« Nawel est une personne solaire qui me suit depuis maintenant ... Beaucoup d'années ! A l'écoute, douce et pertinente, je vais continuer de la consulter encore bien longtemps ! »</blockquote><figcaption>Sébastien T.<span>Avis Google</span></figcaption></figure><figure class="review" aria-hidden="true"><div class="stars" aria-label="5 étoiles sur 5">★★★★★</div><blockquote>« Nawal est très à l'écoute et bienveillante. Je suis extrêmement reconnaissante qu'on me l'ai recommandée car c'est une praticienne incroyable ! Je la recommande les yeux fermés ! »</blockquote><figcaption>Marion A.<span>Avis Google</span></figcaption></figure><figure class="review" aria-hidden="true"><div class="stars" aria-label="5 étoiles sur 5">★★★★★</div><blockquote>« Praticienne découverte, par hasard, je l'ai conseillée à plusieurs personnes qui sont enthousiastes comme moi au sujet de Nawel et du bien-être éprouvé après une séance chez elle. Cette personne vous veut et vous fait du bien. »</blockquote><figcaption>AnneC T.<span>Avis Google</span></figcaption></figure><figure class="review" aria-hidden="true"><div class="stars" aria-label="5 étoiles sur 5">★★★★★</div><blockquote>« Je recommande cette praticienne très compétente et à l écoute de ses patients. Son travail est remarquable, j ai pu voir l amélioration au fil des séances et une libération de mes souffrances enchaînées. Merci Nawel »</blockquote><figcaption>Chris L.<span>Avis Google</span></figcaption></figure></div></div>
+  <div class="wrap"><div class="go-btns rv">
+    <a class="btn-line" href="https://www.google.com/maps/place/Nawal+BILLALI/@43.3752237,5.6071947,17z/data=!4m8!3m7!1s0x12c998f76310b891:0x64ec929e38824571!8m2!3d43.3752237!4d5.6071947!9m1!1b1" target="_blank" rel="noopener">Lire tous les avis sur Google →</a>
+    <a class="btn-line" href="https://www.google.com/maps/place/Nawal+BILLALI/@43.3752237,5.6071947,17z/data=!4m8!3m7!1s0x12c998f76310b891:0x64ec929e38824571!8m2!3d43.3752237!4d5.6071947!9m1!1b1" target="_blank" rel="noopener">Laisser un avis</a>
+  </div></div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="top">
+      <div>
+        <span class="eyebrow rv">Contact</span>
+        <h2 class="h2 rv s1">Prenons le temps<br>d'un <em>premier échange</em>.</h2>
+        <a class="btn-play rv s2" href="https://liberlo.com/profil/nawal-billali">Prendre rendez-vous en ligne</a>
+      </div>
+      <div class="col rv s2"><span class="eyebrow">Le cabinet</span><span class="big">La Destrousse</span><p>Résidence La Verrerie, Bât. A<br>13112 La Destrousse</p>
+        <div class="go-btns" style="margin-top:1.2rem"><a class="btn-line" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.3752237%2C5.6071947" target="_blank" rel="noopener">Maps</a><a class="btn-line" href="https://waze.com/ul?ll=43.3752237%2C5.6071947&amp;navigate=yes" target="_blank" rel="noopener">Waze</a></div></div>
+      <div class="col rv s3"><span class="eyebrow">Me joindre</span><a class="big" href="tel:0676486927">06 76 48 69 27</a><p>Mardi — jeudi : 9h00 – 19h00<br>Samedi : 9h30 – 18h00</p>
+        <div style="margin-top:1.2rem"><ul class="social "><li><a href="#" aria-label="Instagram" data-todo="lien Instagram à fournir"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.2" y="3.2" width="17.6" height="17.6" rx="5" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4.1" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor"/></svg></a></li><li><a href="#" aria-label="TikTok" data-todo="lien TikTok à fournir"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.4 3c.3 2.1 1.7 3.6 3.6 3.8v3a6.9 6.9 0 0 1-3.6-1.1v6.4A5.9 5.9 0 1 1 10.5 9.2c.3 0 .6 0 .9.1v3.2a2.7 2.7 0 1 0 1.9 2.6V3h3.1Z"/></svg></a></li><li><a href="https://www.facebook.com/Alliance-Corps-Esprit-314572278901977/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M13.6 21v-7.6h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.6-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.1H8v3h2.6V21h3Z"/></svg></a></li><li><a href="https://wa.me/33676486927" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" d="M4 20l1.2-3.9A8.4 8.4 0 1 1 8.3 19L4 20Z"/><path fill="currentColor" d="M9.2 7.6c.3-.3.8-.3 1 .1l.9 1.9c.1.3 0 .6-.2.8l-.6.7c.6 1.2 1.6 2.2 2.8 2.8l.7-.6c.2-.2.5-.3.8-.2l1.9.9c.4.2.5.7.2 1l-.8.9c-.4.4-1 .6-1.6.4-2.8-.9-5-3.1-5.9-5.9-.2-.6 0-1.2.4-1.6l.4-.2Z"/></svg></a></li></ul></div></div>
+    </div>
+    <div class="giant" aria-hidden="true">Corps <em>&amp;</em> Esprit</div>
+    <div class="foot"><span>© Alliance Corps Esprit — Nawal Billali, sophrologue &amp; hypnologue</span><span>Mentions légales · Confidentialité</span></div>
+  </div>
+</section>
+
 <div class="menu" id="menu">
   <nav aria-label="Mobile">
     <ul class="menu__list">
+      <li><a href="#approche">Approche</a></li>
       <li><a href="#cabinet">Le cabinet</a></li>
-      <li><a href="#sophrologie">Sophrologie</a></li>
-      <li><a href="#hypnose">Hypnose</a></li>
+      <li><a href="#avis">Avis</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
@@ -212,6 +417,7 @@ body.menu-open{overflow:hidden}
     <a class="btn-play" href="https://liberlo.com/profil/nawal-billali">Prendre rendez-vous</a>
     <a class="tel" href="tel:0676486927">06 76 48 69 27</a>
   </div>
+  <ul class="social menu__social"><li><a href="#" aria-label="Instagram" data-todo="lien Instagram à fournir"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.2" y="3.2" width="17.6" height="17.6" rx="5" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4.1" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor"/></svg></a></li><li><a href="#" aria-label="TikTok" data-todo="lien TikTok à fournir"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.4 3c.3 2.1 1.7 3.6 3.6 3.8v3a6.9 6.9 0 0 1-3.6-1.1v6.4A5.9 5.9 0 1 1 10.5 9.2c.3 0 .6 0 .9.1v3.2a2.7 2.7 0 1 0 1.9 2.6V3h3.1Z"/></svg></a></li><li><a href="https://www.facebook.com/Alliance-Corps-Esprit-314572278901977/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M13.6 21v-7.6h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.6-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.1H8v3h2.6V21h3Z"/></svg></a></li><li><a href="https://wa.me/33676486927" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" d="M4 20l1.2-3.9A8.4 8.4 0 1 1 8.3 19L4 20Z"/><path fill="currentColor" d="M9.2 7.6c.3-.3.8-.3 1 .1l.9 1.9c.1.3 0 .6-.2.8l-.6.7c.6 1.2 1.6 2.2 2.8 2.8l.7-.6c.2-.2.5-.3.8-.2l1.9.9c.4.2.5.7.2 1l-.8.9c-.4.4-1 .6-1.6.4-2.8-.9-5-3.1-5.9-5.9-.2-.6 0-1.2.4-1.6l.4-.2Z"/></svg></a></li></ul>
 </div>
 
 <script>
@@ -237,6 +443,20 @@ body.menu-open{overflow:hidden}
   kick();
   window.addEventListener('touchstart', kick, { once: true, passive: true });
   window.addEventListener('click', kick, { once: true });
+
+  // scroll reveals
+  var isStatic = location.hash === '#static';
+  var els = document.querySelectorAll('.rv, .cab-media');
+  if (isStatic || !('IntersectionObserver' in window)) { els.forEach(function (el) { el.classList.add('in'); }); }
+  else {
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { threshold: .15 });
+    els.forEach(function (el) { io.observe(el); });
+  }
+  // gentle parallax on the cabinet photo
+  var cab = document.getElementById('cabImg'), media = document.getElementById('cabMedia');
+  function par() { var r = media.getBoundingClientRect(), vh = innerHeight;
+    var k = Math.max(-1, Math.min(1, (r.top + r.height / 2 - vh / 2) / vh)); cab.style.transform = 'translateY(' + (k * -40) + 'px)'; }
+  addEventListener('scroll', par, { passive: true }); par();
 })();
 </script>
 </body>
