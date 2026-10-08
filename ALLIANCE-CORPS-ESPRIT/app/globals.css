@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body { @apply bg-sand text-ink; }
+  ::selection { @apply bg-sage-light; }
+  :focus-visible { @apply outline outline-2 outline-offset-2 outline-sage; }
+}
+
+@layer components {
+  .container-page { @apply mx-auto w-full max-w-6xl px-5 sm:px-8; }
+  .kicker { @apply text-xs font-semibold uppercase tracking-[0.18em] text-clay; }
+  .h-display { @apply font-display font-medium leading-[1.05] tracking-tight text-ink; }
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-colors; }
+  .btn-primary { @apply btn bg-sage text-white hover:bg-sage-dark; }
+  .btn-ghost { @apply btn border border-ink/20 text-ink hover:border-sage hover:text-sage-dark; }
+  .prose-page h2 { @apply mt-12 font-display text-3xl font-medium text-ink first:mt-0; }
+  .prose-page p { @apply mt-4 leading-relaxed text-ink/85; }
+  .prose-page ul { @apply mt-4 space-y-2; }
+  .prose-page ul li { @apply relative pl-6 text-ink/85 before:absolute before:left-0 before:top-[0.7em] before:h-1.5 before:w-1.5 before:rounded-full before:bg-clay; }
+  .prose-page ol { @apply mt-4 list-decimal space-y-3 pl-6 text-ink/85 marker:font-semibold marker:text-clay; }
+}

@@ -6,7 +6,7 @@ Un seul dépôt, un dossier par site. Chaque dossier est un projet autonome (son
 |---|---|---|
 | [`OBSERVEBYTES/`](OBSERVEBYTES/) | www.observebyte.fr | Code présent (Next.js 14) |
 | [`KOUKIZ31/`](KOUKIZ31/) | www.koukiz31.fr | Code à importer (Google AI Studio) |
-| [`ALLIANCE-CORPS-ESPRIT/`](ALLIANCE-CORPS-ESPRIT/) | www.alliancecorpsesprit.fr | Code à importer (Google AI Studio) |
+| [`ALLIANCE-CORPS-ESPRIT/`](ALLIANCE-CORPS-ESPRIT/) | www.alliancecorpsesprit.fr | Code présent (Next.js 16) — refonte du site Wix |
 
 ## Domaine de recette : s-fservices.fr
 
