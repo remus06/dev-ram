@@ -39,8 +39,7 @@ body.menu-open{overflow:hidden}
   background:var(--poster) center 22%/cover no-repeat;filter:blur(30px) saturate(104%);transform:scale(1.05)}
 .hero__media::after{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;background:
   linear-gradient(to bottom,rgba(246,238,227,.62) 0%,rgba(246,238,227,.22) 34%,rgba(246,238,227,0) 58%),
-  radial-gradient(120% 70% at 50% 0%,rgba(255,250,242,.38),rgba(255,250,242,0) 60%),
-  linear-gradient(to top,rgba(43,33,26,.28),rgba(43,33,26,0) 26%)}
+  radial-gradient(120% 70% at 50% 0%,rgba(255,250,242,.38),rgba(255,250,242,0) 60%)}
 @keyframes mediaIn{to{transform:scale(1);filter:blur(0);opacity:1}}
 
 /* ---------- NAV ---------- */
@@ -84,11 +83,11 @@ body.menu-open{overflow:hidden}
 
 /* ---------- bottom details: place + breathing guide ---------- */
 .hero__foot{position:absolute;left:var(--pad-x);right:var(--pad-x);bottom:clamp(1.2rem,4vh,2.6rem);z-index:10;
-  display:flex;justify-content:space-between;align-items:flex-end;color:#f7efe4;font-size:.9rem;pointer-events:none}
-.hero__foot .place{letter-spacing:.14em;text-transform:uppercase;font-size:.72rem;opacity:.9;line-height:1.7}
+  display:flex;justify-content:flex-end;align-items:flex-end;color:var(--ink);font-size:.9rem;pointer-events:none}
+.hero__foot .place{letter-spacing:.14em;text-transform:uppercase;font-size:.72rem;opacity:.78;line-height:1.7}
 .breath{display:flex;align-items:center;gap:.9rem}
 .orb{position:relative;width:58px;height:58px}
-.orb::before{content:"";position:absolute;inset:0;border-radius:50%;border:1px solid rgba(247,239,228,.55)}
+.orb::before{content:"";position:absolute;inset:0;border-radius:50%;border:1px solid rgba(43,33,26,.35)}
 .orb::after{content:"";position:absolute;inset:15px;border-radius:50%;background:radial-gradient(circle,#f3c08f,rgba(181,100,60,.55));
   animation:breathe 10s ease-in-out infinite}
 @keyframes breathe{0%,100%{transform:scale(.55);opacity:.75}45%,55%{transform:scale(1.6);opacity:1}}
@@ -136,11 +135,10 @@ body.menu-open{overflow:hidden}
 }
 @media (max-width:900px) and (orientation:portrait){
   .hero__media::before{display:block}
-  .hero__media video,.hero__media img{top:auto;bottom:0;height:64svh;object-position:3% 62%;
+  .hero__media video,.hero__media img{top:auto;bottom:0;height:64svh;object-position:74% 62%;
     -webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(0,0,0,.6) 9%,#000 20%);
     mask-image:linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(0,0,0,.6) 9%,#000 20%)}
-  .hero__foot .place{display:none}
-  .hero__foot{justify-content:flex-end}
+  .hero__foot{display:none}
 }
 @media (max-width:560px){
   .headline{font-size:clamp(2.15rem,10.5vw,3.1rem);line-height:1.1}
@@ -166,10 +164,9 @@ body.menu-open{overflow:hidden}
 
 <section class="hero">
   <div class="hero__media">
-    <img src="hero-poster.jpg" alt="Une personne allongée en relaxation sur un tapis, dans une pièce baignée de lumière chaude">
+    <img src="hero-poster.jpg" alt="Une personne en relaxation allongée sur un tapis, un coussin sous les genoux, dans une pièce baignée de lumière dorée">
     <video id="heroVideo" autoplay muted loop playsinline preload="auto" poster="hero-poster.jpg" aria-hidden="true">
-      <source src="hero-loop.webm" type="video/webm">
-      <source src="hero-loop.mp4" type="video/mp4">
+      <source src="https://d8j0ntlcm91z4.cloudfront.net/user_3KPnPl19D9JuyhsM2qDki5awzVK/hf_20261008_140844_d34604c0-5e6c-4817-a60e-d8fb09785df3.mp4" type="video/mp4">
     </video>
   </div>
 
@@ -197,7 +194,6 @@ body.menu-open{overflow:hidden}
   </div>
 
   <div class="hero__foot rise d7">
-    <div class="place">Sophrologie · Hypnose ericksonienne<br>La Destrousse — près d'Aubagne</div>
     <div class="breath" aria-hidden="true"><div class="lbl"><span>Inspirez…</span><span>Expirez…</span></div><div class="orb"></div></div>
   </div>
 </section>
