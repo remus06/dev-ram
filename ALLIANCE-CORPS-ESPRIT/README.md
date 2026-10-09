@@ -3,7 +3,8 @@
 Site vitrine du cabinet de sophrologie et d'hypnose de Nawal Billali, La Destrousse (13112).
 Même stack que `OBSERVEBYTES/` : Next.js 16 (App Router, TypeScript), build `standalone`, Docker, Caddy en frontal.
 
-Domaine : www.alliancecorpsesprit.fr — recette : `alliance.s-fservices.fr` (voir README racine).
+Recette (par défaut) : **https://alliance.s-fservices.fr** — non indexée par Google (`noindex`).
+Production, plus tard : domaine de la cliente (`NEXT_PUBLIC_SITE_URL` + `CADDY_DOMAINS`).
 
 ## Contenu
 
@@ -40,26 +41,34 @@ npm run dev
 
 http://localhost:3000
 
-## Déploiement sur le VPS OVH (Docker + Caddy)
+## Déploiement sans ligne de commande (GitHub Actions)
 
-Le `docker-compose.yml` reprend le schéma d'ObserveByte : réseau Docker externe `web` et labels `caddy` (caddy-docker-proxy gère TLS et reverse proxy).
+Le workflow `.github/workflows/deploy-alliance.yml` se connecte au VPS en SSH et fait tout :
+installe Docker si besoin, crée le réseau `web`, lance le reverse proxy Caddy partagé
+(`infra/caddy/`, HTTPS automatique), récupère le code dans `/opt/dev-ram` et lance le site.
+Il se déclenche à chaque push sur la branche qui touche `ALLIANCE-CORPS-ESPRIT/`.
+
+Une seule fois, depuis un navigateur :
+
+1. **DNS (OVH)** : zone DNS de `s-fservices.fr` → entrée **A**, sous-domaine `alliance`, cible = IPv4 du VPS.
+2. **Secrets (GitHub)** : dépôt → *Settings → Secrets and variables → Actions → New repository secret* :
+   - `VPS_HOST` : IPv4 du VPS
+   - `VPS_USER` : utilisateur SSH (`ubuntu`, `debian` ou `root` selon l'image OVH)
+   - `VPS_PASSWORD` : son mot de passe (ou `VPS_SSH_KEY` avec une clé privée)
+3. **Lancer** : onglet *Actions* → « Déployer Alliance Corps Esprit (recette) » → dernière exécution → *Re-run all jobs*.
+
+Le site est alors sur https://alliance.s-fservices.fr (certificat HTTPS généré au premier accès).
+
+## Déploiement manuel (SSH)
 
 ```bash
-# Recette
-NEXT_PUBLIC_SITE_URL=https://alliance.s-fservices.fr \
-CADDY_DOMAINS=alliance.s-fservices.fr \
-docker compose up -d --build
-
-# Production (après validation par la cliente)
-NEXT_PUBLIC_SITE_URL=https://www.alliancecorpsesprit.fr \
-CADDY_DOMAINS="alliancecorpsesprit.fr, www.alliancecorpsesprit.fr" \
-docker compose up -d --build
+docker network create web                                   # une seule fois
+docker compose -f ../infra/caddy/docker-compose.yml up -d   # si Caddy n'est pas déjà lancé
+docker compose up -d --build                                # recette alliance.s-fservices.fr par défaut
 ```
 
-Ou copier `.env.example` en `.env` et lancer `docker compose up -d --build`.
+Production (après validation) : `NEXT_PUBLIC_SITE_URL=https://www.<domaine> CADDY_DOMAINS="<domaine>, www.<domaine>" docker compose up -d --build`.
 Port interne : 3000. Aucune clé secrète n'est nécessaire (pas de formulaire, pas d'API).
-
-Avec Coolify : méthode de build « Dockerfile », port 3000, variable `NEXT_PUBLIC_SITE_URL` (aussi en build arg).
 
 ## Structure
 

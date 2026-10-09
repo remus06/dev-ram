@@ -3,7 +3,11 @@
 // ancien site Wix alliancecorpsesprit.com (textes, tarifs, Facebook),
 // registre RNE via infosociétés (SIREN, forme juridique).
 
-export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.alliancecorpsesprit.fr';
+export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://alliance.s-fservices.fr';
+
+// Site de recette (sous-domaine de s-fservices.fr) : jamais indexé par les moteurs de recherche,
+// pour ne pas concurrencer le futur domaine de la cliente.
+export const isStaging = siteUrl.includes('s-fservices.fr') || process.env.NEXT_PUBLIC_NOINDEX === '1';
 
 export const site = {
   name: 'Alliance Corps Esprit',

@@ -10,7 +10,7 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 # Variable publique nécessaire au build (metadata, sitemap)
-ARG NEXT_PUBLIC_SITE_URL=https://www.alliancecorpsesprit.fr
+ARG NEXT_PUBLIC_SITE_URL=https://alliance.s-fservices.fr
 ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL
 ENV NEXT_TELEMETRY_DISABLED=1
 RUN npm run build

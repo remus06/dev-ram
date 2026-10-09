@@ -1,0 +1,117 @@
+name: Déployer Alliance Corps Esprit (recette)
+
+# Déploie ALLIANCE-CORPS-ESPRIT sur le VPS OVH, à l'adresse https://alliance.s-fservices.fr.
+# Secrets à créer dans GitHub (Settings → Secrets and variables → Actions) :
+#   VPS_HOST      adresse IPv4 du VPS
+#   VPS_USER      utilisateur SSH (ex. ubuntu, debian ou root)
+#   VPS_PASSWORD  mot de passe SSH  — ou VPS_SSH_KEY (clé privée) à la place
+# Optionnel : VPS_PORT (22 par défaut)
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - claude/tender-gauss-mch8iw
+    paths:
+      - 'ALLIANCE-CORPS-ESPRIT/**'
+      - 'infra/caddy/**'
+      - '.github/workflows/deploy-alliance.yml'
+
+concurrency:
+  group: deploy-alliance
+  cancel-in-progress: false
+
+env:
+  SITE_URL: https://alliance.s-fservices.fr
+  DOMAINS: alliance.s-fservices.fr
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - name: Vérifier les secrets
+        env:
+          HOST: ${{ secrets.VPS_HOST }}
+          USER: ${{ secrets.VPS_USER }}
+          PASS: ${{ secrets.VPS_PASSWORD }}
+          KEY: ${{ secrets.VPS_SSH_KEY }}
+        run: |
+          missing=""
+          [ -z "$HOST" ] && missing="$missing VPS_HOST"
+          [ -z "$USER" ] && missing="$missing VPS_USER"
+          [ -z "$PASS$KEY" ] && missing="$missing VPS_PASSWORD(ou VPS_SSH_KEY)"
+          if [ -n "$missing" ]; then
+            echo "::error::Secrets manquants :$missing — à créer dans Settings → Secrets and variables → Actions, puis relancer."
+            exit 1
+          fi
+
+      - name: Déployer sur le VPS
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          password: ${{ secrets.VPS_PASSWORD }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_PORT || 22 }}
+          command_timeout: 35m
+          script: |
+            set -eu
+            SUDO=""
+            if [ "$(id -u)" -ne 0 ]; then SUDO="sudo"; fi
+            BRANCH="${{ github.ref_name }}"
+            DIR=/opt/dev-ram
+
+            echo "== Docker"
+            if ! command -v docker >/dev/null 2>&1; then
+              curl -fsSL https://get.docker.com | $SUDO sh
+            fi
+            if ! command -v git >/dev/null 2>&1; then
+              $SUDO apt-get update -y && $SUDO apt-get install -y git
+            fi
+            $SUDO docker network inspect web >/dev/null 2>&1 || $SUDO docker network create web
+
+            echo "== Code ($BRANCH)"
+            if [ -d "$DIR/.git" ]; then
+              $SUDO git -C "$DIR" fetch --depth 1 origin "$BRANCH"
+              $SUDO git -C "$DIR" checkout -B "$BRANCH" FETCH_HEAD
+            else
+              $SUDO git clone --depth 1 --branch "$BRANCH" https://github.com/${{ github.repository }}.git "$DIR"
+            fi
+
+            echo "== Pare-feu"
+            if command -v ufw >/dev/null 2>&1 && $SUDO ufw status | grep -q "Status: active"; then
+              $SUDO ufw allow 80/tcp && $SUDO ufw allow 443/tcp && $SUDO ufw allow 443/udp
+            fi
+
+            echo "== Reverse proxy (Caddy)"
+            if $SUDO docker ps --format '{{.Image}}' | grep -q caddy-docker-proxy; then
+              echo "Caddy déjà en place."
+            else
+              if $SUDO ss -ltnH '( sport = :80 or sport = :443 )' | grep -q .; then
+                echo "Les ports 80/443 sont déjà utilisés par un autre service :"
+                $SUDO ss -ltnp '( sport = :80 or sport = :443 )'
+                echo "Arrêter ce service (ou l'intégrer à Caddy) puis relancer le déploiement."
+                exit 1
+              fi
+              $SUDO docker compose -f "$DIR/infra/caddy/docker-compose.yml" up -d
+            fi
+
+            echo "== Site"
+            cd "$DIR/ALLIANCE-CORPS-ESPRIT"
+            $SUDO env NEXT_PUBLIC_SITE_URL="${{ env.SITE_URL }}" CADDY_DOMAINS="${{ env.DOMAINS }}" \
+              docker compose up -d --build --remove-orphans
+            $SUDO docker image prune -f >/dev/null || true
+            $SUDO docker compose ps
+
+      - name: Vérifier que le site répond
+        continue-on-error: true
+        run: |
+          for i in $(seq 1 18); do
+            code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 10 "$SITE_URL/" || true)
+            echo "Essai $i : HTTP $code"
+            if [ "$code" = "200" ]; then echo "Site en ligne : $SITE_URL"; exit 0; fi
+            sleep 10
+          done
+          echo "::warning::Le site ne répond pas encore en HTTPS. Vérifier l'entrée DNS « alliance » (type A → IP du VPS) dans la zone OVH de s-fservices.fr ; la propagation peut prendre jusqu'à quelques heures."
+          exit 1

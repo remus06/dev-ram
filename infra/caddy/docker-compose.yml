@@ -1,0 +1,26 @@
+# Reverse proxy partagé par tous les sites du VPS.
+# caddy-docker-proxy lit les labels « caddy: » des conteneurs du réseau « web »
+# et obtient automatiquement les certificats HTTPS (Let's Encrypt).
+services:
+  caddy:
+    image: lucaslorentz/caddy-docker-proxy:ci-alpine
+    container_name: caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    environment:
+      - CADDY_INGRESS_NETWORKS=web
+    networks:
+      - web
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - caddy_data:/data
+
+networks:
+  web:
+    external: true
+
+volumes:
+  caddy_data: {}

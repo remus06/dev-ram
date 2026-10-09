@@ -3,17 +3,17 @@ services:
     build:
       context: .
       args:
-        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-https://www.alliancecorpsesprit.fr}
+        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-https://alliance.s-fservices.fr}
     image: alliance-corps-esprit:latest
     restart: unless-stopped
     expose:
       - "3000"
     environment:
-      - NEXT_PUBLIC_SITE_URL=${NEXT_PUBLIC_SITE_URL:-https://www.alliancecorpsesprit.fr}
+      - NEXT_PUBLIC_SITE_URL=${NEXT_PUBLIC_SITE_URL:-https://alliance.s-fservices.fr}
     networks:
       - web
     labels:
-      caddy: ${CADDY_DOMAINS:-alliancecorpsesprit.fr, www.alliancecorpsesprit.fr}
+      caddy: ${CADDY_DOMAINS:-alliance.s-fservices.fr}
       caddy.reverse_proxy: "{{upstreams 3000}}"
 
 networks:

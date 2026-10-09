@@ -18,6 +18,11 @@ Un seul dépôt, un dossier par site. Chaque dossier est un projet autonome (son
 
 Aucun domaine n'est codé en dur : seule la variable `NEXT_PUBLIC_SITE_URL` (et le domaine du déploiement) change.
 
+## Serveur
+
+- `infra/caddy/` : reverse proxy partagé (caddy-docker-proxy, HTTPS automatique) sur le réseau Docker `web`. Chaque site déclare ses domaines via ses labels `caddy`.
+- `.github/workflows/deploy-*.yml` : déploiement sur le VPS depuis GitHub (secrets `VPS_HOST`, `VPS_USER`, `VPS_PASSWORD` ou `VPS_SSH_KEY`), sans ligne de commande.
+
 ## Ajouter un projet
 
 1. Exporter le projet en zip (AI Studio → Download), **sans** `node_modules`, `.next`, `.git`, `.env`.

@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import { Instrument_Sans, Instrument_Serif } from 'next/font/google';
-import { site, siteUrl, socials } from '@/lib/site';
+import { isStaging, site, siteUrl, socials } from '@/lib/site';
 import './globals.css';
 
 const serif = Instrument_Serif({
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'Relaxation dans une pièce baignée de lumière dorée' }]
   },
   twitter: { card: 'summary_large_image', title, description: site.description, images: ['/og-image.jpg'] },
-  robots: { index: true, follow: true },
+  robots: isStaging ? { index: false, follow: false } : { index: true, follow: true },
   formatDetection: { telephone: false }
 };
 
