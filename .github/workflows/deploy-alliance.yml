@@ -85,15 +85,17 @@ jobs:
             fi
 
             echo "== Reverse proxy (Caddy)"
-            if $SUDO docker ps --format '{{.Image}}' | grep -q caddy-docker-proxy; then
-              echo "Caddy déjà en place."
+            # Caddy est partagé par tous les sites (ex. observebyte.fr) : on ne le lance que s'il n'existe pas.
+            if $SUDO docker ps --format '{{.Image}} {{.Names}}' | grep -qi caddy; then
+              echo "Caddy déjà en place :"
+              $SUDO docker ps --filter "name=caddy" --format '  {{.Names}} ({{.Image}})' || true
+            elif $SUDO ss -ltnH '( sport = :80 or sport = :443 )' | grep -q .; then
+              echo "Les ports 80/443 sont occupés par un service qui n'est pas un conteneur Caddy :"
+              $SUDO ss -ltnp '( sport = :80 or sport = :443 )'
+              echo "Rien n'a été modifié. Si c'est un Caddy installé hors Docker, ajouter au Caddyfile :"
+              echo "  alliance.s-fservices.fr { reverse_proxy 127.0.0.1:3010 }  et exposer le port 3010 du conteneur."
+              exit 1
             else
-              if $SUDO ss -ltnH '( sport = :80 or sport = :443 )' | grep -q .; then
-                echo "Les ports 80/443 sont déjà utilisés par un autre service :"
-                $SUDO ss -ltnp '( sport = :80 or sport = :443 )'
-                echo "Arrêter ce service (ou l'intégrer à Caddy) puis relancer le déploiement."
-                exit 1
-              fi
               $SUDO docker compose -f "$DIR/infra/caddy/docker-compose.yml" up -d
             fi
 
