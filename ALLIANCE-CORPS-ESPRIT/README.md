@@ -34,7 +34,8 @@ Mobile : réseaux visibles en haut à droite sur tous les écrans (en-tête fixe
 
 ## Développement local
 
-Windows : double-cliquer sur **`demarrer-local.bat`** (installe les dépendances la première fois, lance le site et ouvre http://localhost:3000). Prérequis : Node.js 20+ (LTS).
+Windows : double-cliquer sur **`demarrer-local.bat`** (installe les dépendances la première fois, lance le site et ouvre http://localhost:3000).
+Si Node.js 20+ n'est pas installé sur le PC, le lanceur télécharge une copie portable de la dernière LTS dans `AppData\Local\alliance-node` (`scripts/node-portable.ps1`) : aucune installation, aucun droit administrateur.
 
 Ou en ligne de commande :
 
