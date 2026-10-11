@@ -34,12 +34,14 @@ Mobile : réseaux visibles en haut à droite sur tous les écrans (en-tête fixe
 
 ## Développement local
 
+Windows : double-cliquer sur **`demarrer-local.bat`** (installe les dépendances la première fois, lance le site et ouvre http://localhost:3000). Prérequis : Node.js 20+ (LTS).
+
+Ou en ligne de commande :
+
 ```powershell
 npm install
 npm run dev
 ```
-
-http://localhost:3000
 
 ## Déploiement sans ligne de commande (GitHub Actions)
 
