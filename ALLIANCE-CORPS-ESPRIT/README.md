@@ -12,25 +12,29 @@ Une page d'accueil en une seule page + 2 pages légales :
 
 | Section | Source |
 |---|---|
-| Hero vidéo (boucle Higgsfield) | Vidéo générée — `lib/site.ts` → `heroVideo` |
-| Approche, outils, champs d'action | Ancien site Wix (textes reformulés) |
-| Tarifs | Page « Tarifs & Prestations » de l'ancien site |
+| Hero : séance en vis-à-vis (image Higgsfield animée en CSS) | `public/images/hero-seance.jpg` — vidéo possible via `heroVideo` |
+| Mon approche (+ emplacement du portrait), outils, champs d'action | Ancien site Wix (textes reformulés) |
+| Tarifs et « Bon à savoir » | Notes de la cliente du 14/10/2026 |
 | Le cabinet (photo, horaires, Google Maps / Waze) | Fiche Google + photo fournie |
-| Avis (5,0 / 17 avis, 8 avis cités) | Fiche Google, copie figée |
-| `/mentions-legales`, `/confidentialite` | Registre RNE (infosociétés), hébergeur OVH |
+| Avis (5,0 / 18 avis, 8 avis cités, « Laisser un avis » direct) | Fiche Google, copie figée |
+| Contact : formulaire (envoi par e-mail via Resend) | `app/api/contact/route.ts` |
+| Pied de page : logos SSP et SDMH (fiches d'adhérente) | Ancien site |
+| `/mentions-legales`, `/confidentialite` | EI SIREN 791 220 718 (registre RNE), hébergeur OVH |
 
-Toutes les données (téléphone, adresse, horaires, réseaux, tarifs, avis) sont dans **`lib/site.ts`** : c'est le seul fichier à modifier pour les mettre à jour.
+Toutes les données (téléphone, adresse, horaires, réseaux, tarifs, avis, mentions) sont dans **`lib/site.ts`** : c'est le seul fichier à modifier pour les mettre à jour.
 
 Mobile : réseaux visibles en haut à droite sur tous les écrans (en-tête fixe), menu plein écran, barre « Appeler / Prendre rendez-vous » en bas après le hero.
 
 ## À compléter avant mise en ligne
 
-1. **Instagram et TikTok** : coller les URL des profils dans `socials` (`lib/site.ts`). Tant qu'elles sont vides, les icônes pointent vers `#`.
-2. **WhatsApp** : vérifier que le +33 6 76 48 69 27 est bien sur WhatsApp.
-3. **Adresse** : Google indique « Résidence La Verrerie, Bâtiment Arrerie », l'ancien site « Bât A », le registre « Rés. La Tuilerie Bât A ». À confirmer.
-4. **Mentions légales** : le registre indique la SARL ALLIANCE CORPS ESPRIT (SIREN 790 479 745) avec Nawal Billali en qualité de **liquidatrice**. Si l'activité est désormais exercée sous une autre structure (EI, micro-entreprise…), remplacer `legal` dans `lib/site.ts`.
-5. **Tarifs** : repris de l'ancien site, à faire valider.
-6. **Vidéo du hero** : servie par le CDN Higgsfield. Pour ne plus en dépendre, télécharger le mp4 depuis le compte Higgsfield, le mettre dans `public/videos/hero.mp4` et remplacer `heroVideo` par `'/videos/hero.mp4'`.
+1. **Prise de rendez-vous** : coller le lien de la page de réservation Google Agenda dans `site.booking`. Tant qu'il est vide, les boutons « Prendre rendez-vous » mènent au formulaire de contact.
+2. **Portrait de Nawal** (section « Mon approche ») : déposer la photo dans `public/images/` et indiquer son chemin dans `site.portrait`.
+3. **Formulaire de contact** : créer les secrets GitHub `RESEND_API_KEY`, `CONTACT_TO_EMAIL` (adresse de la praticienne) et `CONTACT_FROM_EMAIL` (adresse d'un domaine vérifié sur Resend). Sans eux, le formulaire affiche le téléphone et WhatsApp.
+4. **Médiateur de la consommation** (obligatoire) : renseigner `legal.mediator` (nom et site de l'organisme auquel la praticienne a adhéré ; le SDMH propose Médiation Consommation Développement).
+5. **TikTok** : coller l'URL du profil dans `socials` pour faire apparaître l'icône (les réseaux sans URL sont masqués).
+6. **WhatsApp** : vérifier que le +33 6 76 48 69 27 est bien sur WhatsApp.
+7. **Adresse** : Google indique « Résidence La Verrerie, Bâtiment Arrerie », l'ancien site « Bât A ». À confirmer.
+8. **À faire valider** : texte « Déprogrammation psycho-émotionnelle », tarif étudiant (70 €), durée de conservation des messages (3 ans, page Confidentialité).
 
 ## Développement local
 
@@ -79,6 +83,6 @@ Port interne : 3000. Aucune clé secrète n'est nécessaire (pas de formulaire, 
 app/            page d'accueil, pages légales, robots, sitemap, icônes
 components/     en-tête (menu, réseaux, barre mobile), vidéo, effets au défilement, pied de page
 lib/site.ts     toutes les données du cabinet
-public/         images (hero, cabinet), image Open Graph
+public/         images (hero, cabinet, logos des syndicats), image Open Graph
 maquette-hero/  maquettes HTML et aperçus (non inclus dans l'image Docker)
 ```

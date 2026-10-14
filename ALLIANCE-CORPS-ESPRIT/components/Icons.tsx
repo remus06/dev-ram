@@ -30,6 +30,15 @@ export function SocialIcon({ name }: { name: SocialKey }) {
           />
         </svg>
       );
+    case 'linkedin':
+      return (
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            fill="currentColor"
+            d="M4.6 9.2h3v10.3h-3V9.2Zm1.5-4.9a1.7 1.7 0 1 1 0 3.5 1.7 1.7 0 0 1 0-3.5Zm3.4 4.9h2.9v1.4c.4-.8 1.4-1.6 2.9-1.6 3.1 0 3.7 2 3.7 4.7v5.8h-3v-5.1c0-1.2 0-2.8-1.7-2.8s-2 1.3-2 2.7v5.2h-2.8V9.2Z"
+          />
+        </svg>
+      );
     case 'whatsapp':
       return (
         <svg viewBox="0 0 24 24" aria-hidden="true">

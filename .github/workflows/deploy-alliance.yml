@@ -6,6 +6,7 @@ name: Déployer Alliance Corps Esprit (recette)
 #   VPS_USER      utilisateur SSH (ex. ubuntu, debian ou root)
 #   VPS_PASSWORD  mot de passe SSH  — ou VPS_SSH_KEY (clé privée) à la place
 # Optionnel : VPS_PORT (22 par défaut)
+# Formulaire de contact (optionnel) : RESEND_API_KEY, CONTACT_TO_EMAIL, CONTACT_FROM_EMAIL
 
 on:
   workflow_dispatch:
@@ -48,6 +49,10 @@ jobs:
 
       - name: Déployer sur le VPS
         uses: appleboy/ssh-action@v1.2.0
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          CONTACT_TO_EMAIL: ${{ secrets.CONTACT_TO_EMAIL }}
+          CONTACT_FROM_EMAIL: ${{ secrets.CONTACT_FROM_EMAIL }}
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
@@ -55,6 +60,7 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           port: ${{ secrets.VPS_PORT || 22 }}
           command_timeout: 35m
+          envs: RESEND_API_KEY,CONTACT_TO_EMAIL,CONTACT_FROM_EMAIL
           script: |
             set -eu
             SUDO=""
@@ -102,6 +108,7 @@ jobs:
             echo "== Site"
             cd "$DIR/ALLIANCE-CORPS-ESPRIT"
             $SUDO env NEXT_PUBLIC_SITE_URL="${{ env.SITE_URL }}" CADDY_DOMAINS="${{ env.DOMAINS }}" \
+              RESEND_API_KEY="${RESEND_API_KEY:-}" CONTACT_TO_EMAIL="${CONTACT_TO_EMAIL:-}" CONTACT_FROM_EMAIL="${CONTACT_FROM_EMAIL:-}" \
               docker compose up -d --build --remove-orphans
             $SUDO docker image prune -f >/dev/null || true
             $SUDO docker compose ps

@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
-import { navLinks, site } from '@/lib/site';
+import { bookingLink, navLinks, site } from '@/lib/site';
 import { Socials } from './Socials';
 import { CalendarIcon, PhoneIcon } from './Icons';
 
@@ -58,7 +58,7 @@ export function SiteHeader({ solid = false }: { solid?: boolean }) {
 
         <div className="nav__right">
           <Socials className="rise d6" />
-          <a className="btn-play nav__cta rise d7" href={site.booking} target="_blank" rel="noopener noreferrer">
+          <a className="btn-play nav__cta rise d7" {...bookingLink}>
             Prendre rendez-vous
           </a>
           <button
@@ -87,7 +87,7 @@ export function SiteHeader({ solid = false }: { solid?: boolean }) {
         </nav>
         <div className="menu__rule" />
         <div className="menu__foot">
-          <a className="btn-play" href={site.booking} target="_blank" rel="noopener noreferrer">
+          <a className="btn-play" {...bookingLink}>
             Prendre rendez-vous
           </a>
           <a className="tel" href={site.phone.href}>
@@ -100,7 +100,7 @@ export function SiteHeader({ solid = false }: { solid?: boolean }) {
         <a className="mobile-cta__call" href={site.phone.href}>
           <PhoneIcon /> Appeler
         </a>
-        <a className="mobile-cta__book" href={site.booking} target="_blank" rel="noopener noreferrer">
+        <a className="mobile-cta__book" {...bookingLink}>
           <CalendarIcon /> Prendre rendez-vous
         </a>
       </div>

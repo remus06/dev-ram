@@ -3,9 +3,10 @@ import { SiteHeader } from '@/components/SiteHeader';
 import { SiteFooter } from '@/components/SiteFooter';
 import { HeroVideo } from '@/components/HeroVideo';
 import { ScrollEffects } from '@/components/ScrollEffects';
+import { ContactSection } from '@/components/ContactSection';
 import { NavigateIcon, PinIcon } from '@/components/Icons';
-import { fields, links, practices, prices, rating, reviews, site, toolGroups } from '@/lib/site';
-import heroPoster from '@/public/images/hero-poster.jpg';
+import { bookingLink, fields, links, prices, rating, reviews, site, toolGroups } from '@/lib/site';
+import heroImage from '@/public/images/hero-seance.jpg';
 import cabinetPhoto from '@/public/images/cabinet.jpg';
 
 function Stars({ label }: { label: string }) {
@@ -30,7 +31,8 @@ function ReviewCard({ author, text, hidden }: { author: string; text: string; hi
 }
 
 export default function HomePage() {
-  const marquee = [...practices, ...practices];
+  const heroVideo: string = site.heroVideo;
+  const portrait: string = site.portrait;
 
   return (
     <>
@@ -41,15 +43,17 @@ export default function HomePage() {
         {/* ---------- HERO ---------- */}
         <section className="hero" aria-label="Accueil">
           <div className="hero__media">
-            <Image
-              src={heroPoster}
-              alt="Une personne en relaxation allongée sur un tapis, un coussin sous les genoux, dans une pièce baignée de lumière dorée"
-              priority
-              fill
-              sizes="100vw"
-              placeholder="blur"
-            />
-            <HeroVideo src={site.heroVideo} poster={heroPoster.src} />
+            <div className="hero__frame">
+              <Image
+                src={heroImage}
+                alt="Une séance au cabinet : la praticienne et sa cliente assises face à face, dans une pièce baignée de lumière dorée"
+                priority
+                fill
+                sizes="100vw"
+                placeholder="blur"
+              />
+              {heroVideo ? <HeroVideo src={heroVideo} poster={heroImage.src} /> : null}
+            </div>
           </div>
 
           <div className="hero__inner">
@@ -83,20 +87,20 @@ export default function HomePage() {
           </div>
         </section>
 
-        <div className="marquee" aria-hidden="true">
-          <div className="track">
-            {marquee.map((p, i) => (
-              <span key={i}>
-                {p}
-                <i />
-              </span>
-            ))}
-          </div>
-        </div>
-
         {/* ---------- APPROCHE ---------- */}
         <section className="approach" id="approche">
           <div className="wrap">
+            <figure className="portrait rv">
+              {portrait ? (
+                <Image src={portrait} alt={`Portrait de ${site.practitioner}`} fill sizes="(max-width: 900px) 100vw, 40vw" />
+              ) : (
+                // Emplacement réservé tant que la photo n'est pas fournie (site.portrait dans lib/site.ts).
+                <div className="portrait__empty">
+                  <span aria-hidden="true">NB</span>
+                  <small>Photo à venir</small>
+                </div>
+              )}
+            </figure>
             <div>
               <span className="eyebrow rv">Mon approche</span>
               <h2 className="h2 rv s1">
@@ -104,8 +108,6 @@ export default function HomePage() {
                 <br />
                 <em>retrouver son équilibre.</em>
               </h2>
-            </div>
-            <div>
               <p className="lead rv s1">
                 J&apos;accompagne celles et ceux qui ressentent le besoin de se libérer de schémas limitants, de tensions
                 enfouies et de blocages émotionnels. Praticienne en thérapie brève orientée solution et en relation
@@ -140,7 +142,7 @@ export default function HomePage() {
             {toolGroups.map((g) => (
               <div className="tool-group" key={g.title}>
                 <h3 className="tool-group__title rv">{g.title}</h3>
-                <div className="tool-grid">
+                <div className={`tool-grid${g.tools.length > 3 ? ' tool-grid--4' : ''}`}>
                   {g.tools.map((t, i) => (
                     <article className={`tool rv s${i + 1}`} key={t.name}>
                       <h4>{t.name}</h4>
@@ -190,28 +192,15 @@ export default function HomePage() {
                   Séances & <em>prestations</em>
                 </h2>
               </div>
-              <a className="btn-play rv s2" href={site.booking} target="_blank" rel="noopener noreferrer">
+              <a className="btn-play rv s2" {...bookingLink}>
                 Réserver une séance
               </a>
             </div>
             <div className="prices__grid">
               <div className="rv">
-                <h3 className="prices__title">Séances individuelles</h3>
+                <h3 className="prices__title">Séances</h3>
                 <ul className="price-list">
                   {prices.individual.map((p) => (
-                    <li key={p.name}>
-                      <span className="price-list__name">
-                        {p.name}
-                        {p.duration && <small>{p.duration}</small>}
-                      </span>
-                      <span className="price-list__dots" aria-hidden="true" />
-                      <span className="price-list__price">{p.price}</span>
-                    </li>
-                  ))}
-                </ul>
-                <h3 className="prices__title">Séances à partager</h3>
-                <ul className="price-list">
-                  {prices.shared.map((p) => (
                     <li key={p.name}>
                       <span className="price-list__name">
                         {p.name}
@@ -332,12 +321,13 @@ export default function HomePage() {
               <a className="btn-line" href={links.googleReviews} target="_blank" rel="noopener noreferrer">
                 Lire tous les avis sur Google →
               </a>
-              <a className="btn-line" href={links.googleReviews} target="_blank" rel="noopener noreferrer">
+              <a className="btn-line" href={links.writeReview} target="_blank" rel="noopener noreferrer">
                 Laisser un avis
               </a>
             </div>
           </div>
         </section>
+        <ContactSection />
       </main>
 
       <SiteFooter />

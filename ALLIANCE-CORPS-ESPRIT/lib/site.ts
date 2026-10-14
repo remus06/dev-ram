@@ -1,7 +1,8 @@
 // Toutes les informations du cabinet au même endroit.
 // Sources : fiche Google « Nawal BILLALI » (adresse, coordonnées, horaires, avis),
-// ancien site Wix alliancecorpsesprit.com (textes, tarifs, Facebook),
-// registre RNE via infosociétés (SIREN, forme juridique).
+// ancien site Wix alliancecorpsesprit.com (textes, LinkedIn, SIREN, adhésions),
+// registre RNE via infosociétés (SIREN 791 220 718 : entrepreneur individuel, APE 8690F),
+// notes de la cliente du 14/10/2026 (tarifs, Bon à savoir, Instagram, syndicats).
 
 export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://alliance.s-fservices.fr';
 
@@ -31,31 +32,44 @@ export const site = {
   },
   geo: { lat: 43.3752237, lng: 5.6071947 },
   parking: 'Parking visiteurs gratuit',
-  booking: 'https://liberlo.com/profil/nawal-billali',
+  // Prise de rendez-vous : lien de la page de réservation Google Agenda (remplace Liberlo).
+  // Tant qu'il est vide, les boutons « Prendre rendez-vous » mènent au formulaire de contact.
+  booking: '',
+  // Portrait de Nawal pour la section « Mon approche » : déposer la photo dans public/images/
+  // et indiquer son chemin ici (ex. '/images/nawal.jpg'). Vide = emplacement réservé.
+  portrait: '',
   hours: [
     { label: 'Mardi — jeudi', value: '9h00 – 19h00', days: ['Tuesday', 'Wednesday', 'Thursday'], opens: '09:00', closes: '19:00' },
     { label: 'Samedi', value: '9h30 – 18h00', days: ['Saturday'], opens: '09:30', closes: '18:00' }
   ],
-  // Vidéo du hero générée avec Higgsfield (servie par leur CDN).
-  // Pour l'héberger soi-même : télécharger le mp4 dans public/videos/ et mettre '/videos/hero.mp4'.
-  heroVideo:
-    'https://d8j0ntlcm91z4.cloudfront.net/user_3KPnPl19D9JuyhsM2qDki5awzVK/hf_20261008_140844_d34604c0-5e6c-4817-a60e-d8fb09785df3.mp4'
+  // Vidéo du hero (optionnelle) : l'image fixe public/images/hero-seance.jpg est animée en CSS.
+  // Pour une vidéo : mettre le mp4 dans public/videos/ et indiquer '/videos/hero.mp4'.
+  heroVideo: ''
 } as const;
+
+// Attributs des boutons « Prendre rendez-vous » : Google Agenda (nouvel onglet) si renseigné, sinon le formulaire.
+const bookingUrl: string = site.booking;
+export const bookingLink: { href: string; target?: string; rel?: string } = bookingUrl
+  ? { href: bookingUrl, target: '_blank', rel: 'noopener noreferrer' }
+  : { href: '/#contact' };
 
 export const links = {
   maps: `https://www.google.com/maps/dir/?api=1&destination=${site.geo.lat}%2C${site.geo.lng}`,
   waze: `https://waze.com/ul?ll=${site.geo.lat}%2C${site.geo.lng}&navigate=yes`,
-  googleReviews:
-    'https://www.google.com/maps/place/Nawal+BILLALI/@43.3752237,5.6071947,17z/data=!4m8!3m7!1s0x12c998f76310b891:0x64ec929e38824571!8m2!3d43.3752237!4d5.6071947!9m1!1b1'
+  // Fiche Google du cabinet (lien fourni par la cliente).
+  googleReviews: 'https://maps.app.goo.gl/NLWysxf7GHTsDUm96',
+  // Ouvre directement la fenêtre « Laisser un avis » (Place ID de la fiche, vérifié).
+  writeReview: 'https://search.google.com/local/writereview?placeid=ChIJkbgQY_eYyRIRcUWCOJ6S7GQ'
 };
 
-export type SocialKey = 'instagram' | 'tiktok' | 'facebook' | 'whatsapp';
+export type SocialKey = 'instagram' | 'tiktok' | 'facebook' | 'linkedin' | 'whatsapp';
 
-// Instagram et TikTok : aucun compte trouvé — coller ici les URL des profils.
+// Les réseaux sans URL ne sont pas affichés. TikTok : coller l'URL du profil pour faire apparaître l'icône.
 export const socials: { key: SocialKey; label: string; href: string }[] = [
-  { key: 'instagram', label: 'Instagram', href: '' },
+  { key: 'instagram', label: 'Instagram', href: 'https://www.instagram.com/sante_physique_et_mentale/' },
   { key: 'tiktok', label: 'TikTok', href: '' },
   { key: 'facebook', label: 'Facebook', href: 'https://www.facebook.com/Alliance-Corps-Esprit-314572278901977/' },
+  { key: 'linkedin', label: 'LinkedIn', href: 'https://www.linkedin.com/in/nawel-billali-02a59422/' },
   { key: 'whatsapp', label: 'WhatsApp', href: 'https://wa.me/33676486927' }
 ];
 
@@ -65,18 +79,6 @@ export const navLinks = [
   { href: '#tarifs', label: 'Tarifs' },
   { href: '#cabinet', label: 'Le cabinet' },
   { href: '#avis', label: 'Avis' }
-];
-
-export const practices = [
-  'Sophrologie',
-  'Hypnose ericksonienne',
-  'Méthode Vittoz',
-  'Access Bars',
-  'EFT',
-  'Psycho-Bio-Acupressure',
-  'DEEPLI',
-  'VaguExpans',
-  "Relation d'aide"
 ];
 
 export const toolGroups = [
@@ -98,7 +100,7 @@ export const toolGroups = [
     ]
   },
   {
-    title: 'Énergétique',
+    title: 'Énergétique & émotionnel',
     tools: [
       {
         name: 'Psycho-Bio-Acupressure',
@@ -111,6 +113,11 @@ export const toolGroups = [
       {
         name: 'Access Bars',
         text: "Issue d'Access Consciousness®, une approche par le toucher de points de la tête, pour relâcher les tensions, conditionnements et croyances qui pèsent au quotidien."
+      },
+      {
+        // Texte à faire valider par la cliente.
+        name: 'Déprogrammation psycho-émotionnelle',
+        text: "Repérer et désamorcer les charges émotionnelles et les processus inconscients qui entretiennent les mêmes schémas, pour s'en libérer à la racine."
       }
     ]
   }
@@ -135,31 +142,23 @@ export const fields = [
   }
 ];
 
-// Tarifs repris de l'ancien site (page « Tarifs & Prestations »).
+// Tarifs (notes de la cliente du 14/10/2026).
 export const prices = {
   individual: [
-    { name: 'Hypnose', duration: '1h30', price: '80 €' },
-    { name: 'Soins énergétiques', duration: '1h30*', price: '80 €' },
-    { name: 'VaguExpans', duration: '1h', price: '80 €' },
-    { name: 'Access Bars', duration: '1h30*', price: '80 €' },
-    { name: 'Sophrologie', duration: '45 min à 1h', price: '60 €' },
-    { name: "Étudiant jusqu'à 20 ans", duration: '', price: '70 €' }
-  ],
-  shared: [
-    { name: 'Sophro Team', duration: '2 à 4 pers. · 1h', price: '35 €' },
-    { name: 'Atelier à thème', duration: '4h', price: '90 €' }
+    { name: 'Séance adulte', duration: '1h à 1h30', price: '80 €' },
+    { name: 'Séance enfant', duration: '45 min', price: '60 €' },
+    { name: 'Séance étudiant', duration: "jusqu'à 21 ans", price: '70 €' },
+    { name: 'VaguExpans', duration: '', price: '80 €' }
   ],
   notes: [
-    'Le premier rendez-vous dure 2h.',
-    "* Les soins énergétiques peuvent durer plus de 1h30 selon ce que le corps a à libérer : le tarif peut alors évoluer, sans jamais dépasser 100 €. Toute heure commencée est due.",
-    "Séances à partager, ateliers et groupes : contactez-moi directement par téléphone.",
     "Annulation : merci de prévenir 48h avant votre rendez-vous, sauf cas de force majeure. Un rendez-vous non décommandé sera facturé.",
-    'Certaines mutuelles remboursent les séances de bien-être. Partenaire Santéclair.'
+    'Certaines mutuelles remboursent les séances de bien-être : renseignez-vous auprès de la vôtre. Partenaire Santéclair.',
+    "Ne jamais interrompre un traitement médical en cours sans l'avis de votre médecin."
   ]
 };
 
-// Avis Google repris mot pour mot (prénom + initiale). Note globale : 5,0 sur 17 avis.
-export const rating = { value: '5,0', count: 17 };
+// Avis Google repris mot pour mot (prénom + initiale). Note globale : 5,0 sur 18 avis (fiche vérifiée le 14/10/2026).
+export const rating = { value: '5,0', count: 18 };
 
 export const reviews = [
   {
@@ -196,19 +195,40 @@ export const reviews = [
   }
 ];
 
-// Mentions légales — registre RNE (infosociétés), à faire valider par la cliente.
+// Mentions légales — entreprise individuelle de la praticienne (SIREN de l'ancien site, confirmé au registre RNE :
+// entrepreneur individuel actif, APE 8690F). L'ancienne SARL (790 479 745) est en liquidation.
 export const legal = {
-  company: 'ALLIANCE CORPS ESPRIT',
-  form: 'SARL au capital de 5 000 €',
-  siren: '790 479 745',
-  siret: '790 479 745 00016',
-  vat: 'FR28790479745',
-  ape: '9609Z',
-  registeredOffice: 'ZAC La Tuilerie, Rés. La Tuilerie Bât. A, 13112 La Destrousse',
-  director: 'Nour-el Houda Nawel Billali',
+  owner: 'Nour-el Houda Nawel Billali',
+  form: 'Entrepreneur individuel (EI)',
+  tradeName: 'Alliance Corps Esprit',
+  siren: '791 220 718',
+  ape: '8690F — Activités de santé humaine non classées ailleurs',
+  // Médiateur de la consommation (obligatoire) : nom et site de l'organisme auquel la praticienne a adhéré.
+  // Vide = ligne non affichée. Le SDMH propose « Médiation Consommation Développement » (medconsodev.eu).
+  mediator: { name: '', site: '' },
   host: {
     name: 'OVH SAS',
     address: '2 rue Kellermann, 59100 Roubaix, France',
     site: 'https://www.ovhcloud.com'
   }
 };
+
+// Adhésions professionnelles (logos en pied de page, liens vers les fiches d'adhérente de l'ancien site).
+export const memberships = [
+  {
+    name: 'Syndicat des Sophrologues Professionnels',
+    short: 'SSP',
+    logo: '/images/logos/ssp-membre.png',
+    width: 193,
+    height: 235,
+    href: 'https://www.syndicat-sophrologues-professionnels.fr/nbillali.html'
+  },
+  {
+    name: "Syndicat des Métiers de l'Hypnose",
+    short: 'SDMH',
+    logo: '/images/logos/sdmh-membre.png',
+    width: 242,
+    height: 277,
+    href: 'https://syndicat-hypnose.com/annuaire-sdmh/6204/billali-nawal/'
+  }
+];

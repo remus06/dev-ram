@@ -1,22 +1,21 @@
+import Image from 'next/image';
 import Link from 'next/link';
-import { links, site } from '@/lib/site';
+import { bookingLink, links, memberships, site } from '@/lib/site';
 import { Socials } from './Socials';
 
 export function SiteFooter() {
   const year = new Date().getFullYear();
   return (
-    <footer className="contact" id="contact">
+    <footer className="contact" id="coordonnees">
       <div className="wrap">
         <div className="top">
           <div>
-            <span className="eyebrow rv">Contact</span>
+            <span className="eyebrow rv">{site.name}</span>
             <h2 className="h2 rv s1">
-              Prenons le temps
-              <br />
-              d&apos;un <em>premier échange</em>.
+              Le chemin pour entrer en <em>amitié avec soi</em>.
             </h2>
-            <a className="btn-play rv s2" href={site.booking} target="_blank" rel="noopener noreferrer">
-              Prendre rendez-vous en ligne
+            <a className="btn-play rv s2" {...bookingLink}>
+              Prendre rendez-vous
             </a>
           </div>
           <div className="col rv s2">
@@ -53,12 +52,26 @@ export function SiteFooter() {
             <Socials className="social--footer" />
           </div>
         </div>
+
+        <div className="members">
+          <span className="eyebrow">Membre de</span>
+          <ul>
+            {memberships.map((m) => (
+              <li key={m.short}>
+                <a href={m.href} target="_blank" rel="noopener noreferrer" title={m.name}>
+                  <Image src={m.logo} alt={m.name} width={m.width} height={m.height} />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
         <div className="giant" aria-hidden="true">
           Corps <em>&amp;</em> Esprit
         </div>
         <p className="disclaimer">
           Les accompagnements proposés relèvent du bien-être et ne se substituent pas à un diagnostic ou à un traitement
-          médical. Poursuivez tout traitement en cours et consultez votre médecin si nécessaire.
+          médical. Ne jamais interrompre un traitement en cours sans l&apos;avis de votre médecin.
         </p>
         <div className="foot">
           <span>
