@@ -4,10 +4,11 @@ import { SiteFooter } from '@/components/SiteFooter';
 import { HeroVideo } from '@/components/HeroVideo';
 import { ScrollEffects } from '@/components/ScrollEffects';
 import { ContactSection } from '@/components/ContactSection';
-import { NavigateIcon, PinIcon } from '@/components/Icons';
-import { bookingLink, fields, links, prices, rating, reviews, site, toolGroups } from '@/lib/site';
-import heroMobile from '@/public/images/hero-seance.jpg';
-import heroDesktop from '@/public/images/hero-mains.jpg';
+import { HeroFx } from '@/components/HeroFx';
+import { BenefitIcon, NavigateIcon, PinIcon } from '@/components/Icons';
+import { benefits, bookingLink, fields, links, prices, rating, reviews, site, toolGroups } from '@/lib/site';
+import heroMobile from '@/public/images/hero-zen-mobile.jpg';
+import heroDesktop from '@/public/images/hero-zen.jpg';
 import cabinetPhoto from '@/public/images/cabinet.jpg';
 
 function Stars({ label }: { label: string }) {
@@ -35,8 +36,8 @@ export default function HomePage() {
   const heroVideo: string = site.heroVideo;
   const portrait: string = site.portrait;
 
-  // Hero : séance vue de dos, mains au premier plan sur ordinateur ; scène en vis-à-vis sur mobile.
-  const heroAlt = 'Une séance au cabinet, vue de dos : les mains de la praticienne accompagnent la respiration de sa cliente';
+  // Hero : visuel en double exposition (profil serein et paysage), cadrage horizontal sur ordinateur, vertical sur mobile.
+  const heroAlt = 'Un visage paisible, les yeux fermés, dont la chevelure se fond dans un paysage de montagnes et de lac au lever du soleil';
   const { props: desktopProps } = getImageProps({ src: heroDesktop, alt: heroAlt, sizes: '100vw', priority: true });
   const { props: mobileProps } = getImageProps({ src: heroMobile, alt: heroAlt, sizes: '100vw', priority: true });
 
@@ -49,45 +50,54 @@ export default function HomePage() {
         {/* ---------- HERO ---------- */}
         <section className="hero" aria-label="Accueil">
           <div className="hero__media">
-            <div className="hero__frame">
+            <div className="hero__art">
               <picture>
-                <source media="(min-width: 901px)" srcSet={desktopProps.srcSet} sizes={desktopProps.sizes} />
+                <source
+                  media="(min-width: 901px), (orientation: landscape)"
+                  srcSet={desktopProps.srcSet}
+                  sizes={desktopProps.sizes}
+                />
                 {/* eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text */}
                 <img {...mobileProps} />
               </picture>
               {heroVideo ? <HeroVideo src={heroVideo} poster={heroDesktop.src} /> : null}
+              <HeroFx />
             </div>
           </div>
 
           <div className="hero__inner">
-            <div className="hero__copy">
-              <h1 className="headline">
-                <span className="line">
-                  <span>
-                    Entrer en <em>amitié</em>
-                    <br className="m" /> avec soi,
-                  </span>
+            <p className="hero__kicker rise d3">Entrer en amitié avec soi, ici et maintenant</p>
+            <span className="hero__rule rise d4" aria-hidden="true" />
+            <h1 className="hero__title">
+              <span className="line">
+                <span>Sophrologie</span>
+              </span>
+              <span className="line">
+                <span>
+                  <em>&amp;</em> Hypnose
                 </span>
-                <span className="line">
-                  <span>ici et maintenant.</span>
-                </span>
-              </h1>
-              <p className="hero__sub rise d8">
-                Sophrologie · Hypnose ericksonienne · Soins énergétiques
-                <span>{site.address.city}, près d&apos;Aubagne</span>
-              </p>
-            </div>
+              </span>
+              <span className="sr-only"> à {site.address.city}, près d&apos;Aubagne</span>
+            </h1>
+            <p className="hero__keys rise d8">Apaisement · Équilibre · Mieux-être</p>
           </div>
 
-          <div className="hero__foot rise d8" aria-hidden="true">
-            <div className="breath">
-              <div className="lbl">
-                <span>Inspirez…</span>
-                <span>Expirez…</span>
-              </div>
-              <div className="orb" />
-            </div>
-          </div>
+          <ul className="benefits" aria-label="Ce que les séances peuvent vous apporter">
+            {benefits.map((b, i) => (
+              <li className="benefit" key={b.label} style={{ animationDelay: `${1.25 + i * 0.12}s` }}>
+                <span className="benefit__icon" style={{ background: b.tone }}>
+                  <BenefitIcon name={b.icon} />
+                </span>
+                <span className="benefit__label">{b.label}</span>
+              </li>
+            ))}
+          </ul>
+
+          <p className="hero__script" aria-label="Respirez, relâchez, avancez">
+            <span aria-hidden="true">Respirez…</span>
+            <span aria-hidden="true">Relâchez…</span>
+            <span aria-hidden="true">Avancez…</span>
+          </p>
         </section>
 
         {/* ---------- APPROCHE ---------- */}

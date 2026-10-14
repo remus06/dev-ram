@@ -81,6 +81,16 @@ export const navLinks = [
   { href: '#avis', label: 'Avis' }
 ];
 
+// Bienfaits mis en avant dans le hero (repris du visuel de référence choisi par la cliente).
+export type BenefitIconName = 'lotus' | 'moon' | 'mind' | 'sprout' | 'sun';
+export const benefits: { label: string; icon: BenefitIconName; tone: string }[] = [
+  { label: 'Gérer le stress et l’anxiété', icon: 'lotus', tone: '#9fb39b' },
+  { label: 'Retrouver un sommeil serein', icon: 'moon', tone: '#a9c3d3' },
+  { label: 'Apaiser les émotions', icon: 'mind', tone: '#e2b573' },
+  { label: 'Se libérer des blocages', icon: 'sprout', tone: '#d49d98' },
+  { label: 'Renforcer la confiance en soi', icon: 'sun', tone: '#a9b99c' }
+];
+
 export const toolGroups = [
   {
     title: 'Corporel & sensoriel',

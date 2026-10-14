@@ -1,4 +1,4 @@
-import type { SocialKey } from '@/lib/site';
+import type { BenefitIconName, SocialKey } from '@/lib/site';
 
 const stroke = { fill: 'none', stroke: 'currentColor', strokeWidth: 1.6 } as const;
 
@@ -88,4 +88,47 @@ export function CalendarIcon() {
       <path {...stroke} d="M3.5 10h17M8 3v4M16 3v4" />
     </svg>
   );
+}
+
+// Icônes au trait des bienfaits (hero).
+export function BenefitIcon({ name }: { name: BenefitIconName }) {
+  const line = { fill: 'none', stroke: 'currentColor', strokeWidth: 1.3, strokeLinecap: 'round', strokeLinejoin: 'round' } as const;
+  switch (name) {
+    case 'lotus':
+      return (
+        <svg viewBox="0 0 32 32" aria-hidden="true">
+          <path {...line} d="M16 24c-3.2-2.6-4.6-6.4-4.6-10.4 0 0 2.9 1.5 4.6 4.6 1.7-3.1 4.6-4.6 4.6-4.6 0 4-1.4 7.8-4.6 10.4Z" />
+          <path {...line} d="M16 24c-4.9 0-8.6-2.6-10.4-6.6 2.6-.4 5.2.2 7.3 1.9M16 24c4.9 0 8.6-2.6 10.4-6.6-2.6-.4-5.2.2-7.3 1.9" />
+          <path {...line} d="M16 13.8c-.9-2-1-4.3-.1-6.6 1.2 1.6 1.6 3.4 1.2 5.3M9.5 27h13" />
+        </svg>
+      );
+    case 'moon':
+      return (
+        <svg viewBox="0 0 32 32" aria-hidden="true">
+          <path {...line} d="M20.5 22.6A8.6 8.6 0 0 1 13.2 8a9 9 0 1 0 10.9 12.6 8.5 8.5 0 0 1-3.6 2Z" />
+          <path {...line} d="M21.5 8.5v3M20 10h3M24.5 13.2v2M23.5 14.2h2" />
+        </svg>
+      );
+    case 'mind':
+      return (
+        <svg viewBox="0 0 32 32" aria-hidden="true">
+          <path {...line} d="M11.5 26v-3.4c-2.6-1.7-4.2-4.6-4.2-7.8a8.7 8.7 0 0 1 17.2-1.9l1.7 4.2h-2.1v3.3c0 1.3-1 2.3-2.3 2.3h-2.5V26" />
+          <path {...line} d="M16.3 18.4s-3.4-2-3.4-4.2a1.8 1.8 0 0 1 3.4-.9 1.8 1.8 0 0 1 3.4.9c0 2.2-3.4 4.2-3.4 4.2Z" />
+        </svg>
+      );
+    case 'sprout':
+      return (
+        <svg viewBox="0 0 32 32" aria-hidden="true">
+          <path {...line} d="M16 26V15M16 17c0-4.4 2.8-7.6 8.2-8.1-.1 5.2-3 8.1-8.2 8.1ZM16 20.5c0-3.4-2.3-5.9-6.6-6.3.1 4 2.4 6.3 6.6 6.3Z" />
+          <path {...line} d="M8 26.5c2.6-1 5.2-1.5 8-1.5s5.4.5 8 1.5" />
+        </svg>
+      );
+    case 'sun':
+      return (
+        <svg viewBox="0 0 32 32" aria-hidden="true">
+          <circle {...line} cx="16" cy="16" r="4.6" />
+          <path {...line} d="M16 5.5v2.6M16 23.9v2.6M5.5 16h2.6M23.9 16h2.6M8.6 8.6l1.8 1.8M21.6 21.6l1.8 1.8M8.6 23.4l1.8-1.8M21.6 10.4l1.8-1.8" />
+        </svg>
+      );
+  }
 }

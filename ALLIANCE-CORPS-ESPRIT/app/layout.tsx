@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Instrument_Sans, Instrument_Serif } from 'next/font/google';
+import { Instrument_Sans, Instrument_Serif, Sacramento } from 'next/font/google';
 import { isStaging, site, siteUrl, socials } from '@/lib/site';
 import './globals.css';
 
@@ -15,6 +15,14 @@ const sans = Instrument_Sans({
   subsets: ['latin'],
   weight: ['400', '500'],
   variable: '--font-sans',
+  display: 'swap'
+});
+
+// Écriture manuscrite du « Respirez… Relâchez… Avancez… » du hero.
+const script = Sacramento({
+  subsets: ['latin'],
+  weight: '400',
+  variable: '--font-script',
   display: 'swap'
 });
 
@@ -87,7 +95,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   };
 
   return (
-    <html lang="fr" className={`${serif.variable} ${sans.variable}`}>
+    <html lang="fr" className={`${serif.variable} ${sans.variable} ${script.variable}`}>
       <body>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
         {children}
