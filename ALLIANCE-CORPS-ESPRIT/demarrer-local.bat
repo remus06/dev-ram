@@ -43,12 +43,15 @@ for /f "delims=" %%v in ('node -v') do echo Node.js %%v
 if exist "node_modules\next\package.json" goto deps_ok
 echo.
 echo Installation des dependances, premiere fois uniquement, 1 a 2 minutes...
+echo Ne pas cliquer dans cette fenetre : cela met l'installation en pause.
+echo Si le titre commence par Selection, appuyer sur Echap pour reprendre.
 call npm install --no-audit --no-fund
 if errorlevel 1 goto npm_fail
 
 :deps_ok
 echo.
 echo Site disponible sur http://localhost:3000  -  fermer cette fenetre pour l'arreter.
+echo Ne pas cliquer dans cette fenetre : si le titre commence par Selection, appuyer sur Echap.
 start "" cmd /c "timeout /t 8 >nul & start http://localhost:3000"
 call npm run dev
 pause
