@@ -147,7 +147,7 @@ export const prices = {
   individual: [
     { name: 'Séance adulte', duration: '1h à 1h30', price: '80 €' },
     { name: 'Séance enfant', duration: '45 min', price: '60 €' },
-    { name: 'Séance étudiant', duration: "jusqu'à 21 ans", price: '70 €' },
+    { name: "Séance étudiant (jusqu'à 21 ans)", duration: '', price: '70 €' },
     { name: 'VaguExpans', duration: '', price: '80 €' }
   ],
   notes: [

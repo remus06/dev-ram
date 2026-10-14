@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     siteName: site.name,
     title,
     description: site.description,
-    images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'Séance au cabinet : praticienne et cliente assises face à face, dans une lumière dorée' }]
+    images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'Séance au cabinet, vue de dos, dans une lumière dorée' }]
   },
   twitter: { card: 'summary_large_image', title, description: site.description, images: ['/og-image.jpg'] },
   robots: isStaging ? { index: false, follow: false } : { index: true, follow: true },

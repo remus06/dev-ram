@@ -12,7 +12,7 @@ Une page d'accueil en une seule page + 2 pages légales :
 
 | Section | Source |
 |---|---|
-| Hero : séance en vis-à-vis (image Higgsfield animée en CSS) | `public/images/hero-seance.jpg` — vidéo possible via `heroVideo` |
+| Hero : séance vue de dos, sans visage, dans le style du vrai cabinet (ordinateur) ; vis-à-vis (mobile) — images Higgsfield animées en CSS | `public/images/hero-mains.jpg`, `hero-seance.jpg` — vidéo possible via `heroVideo` |
 | Mon approche (+ emplacement du portrait), outils, champs d'action | Ancien site Wix (textes reformulés) |
 | Tarifs et « Bon à savoir » | Notes de la cliente du 14/10/2026 |
 | Le cabinet (photo, horaires, Google Maps / Waze) | Fiche Google + photo fournie |

@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image, { getImageProps } from 'next/image';
 import { SiteHeader } from '@/components/SiteHeader';
 import { SiteFooter } from '@/components/SiteFooter';
 import { HeroVideo } from '@/components/HeroVideo';
@@ -6,7 +6,8 @@ import { ScrollEffects } from '@/components/ScrollEffects';
 import { ContactSection } from '@/components/ContactSection';
 import { NavigateIcon, PinIcon } from '@/components/Icons';
 import { bookingLink, fields, links, prices, rating, reviews, site, toolGroups } from '@/lib/site';
-import heroImage from '@/public/images/hero-seance.jpg';
+import heroMobile from '@/public/images/hero-seance.jpg';
+import heroDesktop from '@/public/images/hero-mains.jpg';
 import cabinetPhoto from '@/public/images/cabinet.jpg';
 
 function Stars({ label }: { label: string }) {
@@ -34,6 +35,11 @@ export default function HomePage() {
   const heroVideo: string = site.heroVideo;
   const portrait: string = site.portrait;
 
+  // Hero : séance vue de dos, mains au premier plan sur ordinateur ; scène en vis-à-vis sur mobile.
+  const heroAlt = 'Une séance au cabinet, vue de dos : les mains de la praticienne accompagnent la respiration de sa cliente';
+  const { props: desktopProps } = getImageProps({ src: heroDesktop, alt: heroAlt, sizes: '100vw', priority: true });
+  const { props: mobileProps } = getImageProps({ src: heroMobile, alt: heroAlt, sizes: '100vw', priority: true });
+
   return (
     <>
       <SiteHeader />
@@ -44,15 +50,12 @@ export default function HomePage() {
         <section className="hero" aria-label="Accueil">
           <div className="hero__media">
             <div className="hero__frame">
-              <Image
-                src={heroImage}
-                alt="Une séance au cabinet : la praticienne et sa cliente assises face à face, dans une pièce baignée de lumière dorée"
-                priority
-                fill
-                sizes="100vw"
-                placeholder="blur"
-              />
-              {heroVideo ? <HeroVideo src={heroVideo} poster={heroImage.src} /> : null}
+              <picture>
+                <source media="(min-width: 901px)" srcSet={desktopProps.srcSet} sizes={desktopProps.sizes} />
+                {/* eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text */}
+                <img {...mobileProps} />
+              </picture>
+              {heroVideo ? <HeroVideo src={heroVideo} poster={heroDesktop.src} /> : null}
             </div>
           </div>
 
