@@ -1,0 +1,46 @@
+name: Sécurité des dépendances
+
+# Bloque si une dépendance de production a une faille "high" ou "critical",
+# et vérifie que les sites compilent. Lecture seule, aucun secret.
+
+on:
+  push:
+    branches: [main, claude/tender-gauss-mch8iw]
+  pull_request:
+  schedule:
+    - cron: '17 6 * * 1'   # chaque lundi matin
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        site: [ALLIANCE-CORPS-ESPRIT, OBSERVEBYTES]
+    defaults:
+      run:
+        working-directory: ${{ matrix.site }}
+    steps:
+      - uses: actions/checkout@v5
+      - name: Projet présent sur cette branche ?
+        id: check
+        working-directory: .
+        run: |
+          if [ -f "${{ matrix.site }}/package.json" ]; then echo "ok=1" >> "$GITHUB_OUTPUT"; fi
+      - uses: actions/setup-node@v5
+        if: steps.check.outputs.ok
+        with:
+          node-version: 24
+      - if: steps.check.outputs.ok
+        run: npm ci --no-fund
+      - if: steps.check.outputs.ok
+        run: npm audit --omit=dev --audit-level=high
+      - if: steps.check.outputs.ok
+        run: npm run build
+        env:
+          NEXT_TELEMETRY_DISABLED: 1
