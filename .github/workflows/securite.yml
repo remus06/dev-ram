@@ -32,7 +32,7 @@ jobs:
         working-directory: .
         run: |
           if [ -f "${{ matrix.site }}/package.json" ]; then echo "ok=1" >> "$GITHUB_OUTPUT"; fi
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v7
         if: steps.check.outputs.ok
         with:
           node-version: 24
