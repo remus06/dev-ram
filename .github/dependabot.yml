@@ -1,0 +1,19 @@
+# Mises à jour automatiques : GitHub ouvre une PR quand une version corrigée sort.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directories: ["/ALLIANCE-CORPS-ESPRIT", "/OBSERVEBYTES"]
+    target-branch: claude/tender-gauss-mch8iw
+    schedule: { interval: weekly }
+    open-pull-requests-limit: 5
+    groups:
+      next-react:
+        patterns: ["next", "react", "react-dom", "@types/react*"]
+  - package-ecosystem: docker
+    directories: ["/ALLIANCE-CORPS-ESPRIT", "/OBSERVEBYTES"]
+    target-branch: claude/tender-gauss-mch8iw
+    schedule: { interval: weekly }
+  - package-ecosystem: github-actions
+    directory: "/"
+    target-branch: claude/tender-gauss-mch8iw
+    schedule: { interval: monthly }

@@ -18,6 +18,9 @@ on:
       - 'infra/caddy/**'
       - '.github/workflows/deploy-alliance.yml'
 
+permissions:
+  contents: read
+
 concurrency:
   group: deploy-alliance
   cancel-in-progress: false

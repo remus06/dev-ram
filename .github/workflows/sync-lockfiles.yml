@@ -1,0 +1,42 @@
+name: Mise à jour des lockfiles (ponctuel)
+
+# Workflow temporaire : régénère package-lock.json après la montée de version
+# (Next.js 16.4.1, Node 24), vérifie build + audit, puis committe. À supprimer ensuite.
+
+on:
+  push:
+    branches: [claude/tender-gauss-mch8iw]
+    paths: ['.github/workflows/sync-lockfiles.yml']
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Installer, auditer, construire
+        run: |
+          set -eu
+          for d in ALLIANCE-CORPS-ESPRIT OBSERVEBYTES; do
+            echo "== $d"
+            cd "$d"
+            npm install --no-fund
+            node -e 'const l=require("./package-lock.json").packages;console.log("::notice::'"$d"' next="+l["node_modules/next"].version+" sharp="+((l["node_modules/sharp"]||{}).version))'
+            npm audit --omit=dev --audit-level=high
+            NEXT_TELEMETRY_DISABLED=1 npm run build
+            cd ..
+          done
+      - name: Committer les lockfiles
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898333+github-actions[bot]@users.noreply.github.com"
+          git add ALLIANCE-CORPS-ESPRIT/package-lock.json OBSERVEBYTES/package-lock.json
+          git diff --cached --quiet && echo "::notice::Lockfiles déjà à jour" && exit 0
+          git commit -m "Lockfiles : Next.js 16.4.1, sharp corrigé (généré par CI)"
+          git push
