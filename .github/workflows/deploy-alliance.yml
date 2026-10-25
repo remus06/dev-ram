@@ -35,6 +35,7 @@ jobs:
     timeout-minutes: 40
     steps:
       - name: Vérifier les secrets
+        id: secrets
         env:
           HOST: ${{ secrets.VPS_HOST }}
           USER: ${{ secrets.VPS_USER }}
@@ -46,11 +47,14 @@ jobs:
           [ -z "$USER" ] && missing="$missing VPS_USER"
           [ -z "$PASS$KEY" ] && missing="$missing VPS_PASSWORD(ou VPS_SSH_KEY)"
           if [ -n "$missing" ]; then
-            echo "::error::Secrets manquants :$missing — à créer dans Settings → Secrets and variables → Actions, puis relancer."
-            exit 1
+            echo "::warning::Déploiement ignoré, secrets manquants :$missing — à créer dans Settings → Secrets and variables → Actions."
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "ok=true" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Déployer sur le VPS
+        if: steps.secrets.outputs.ok == 'true'
         uses: appleboy/ssh-action@v1.2.0
         env:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
@@ -117,6 +121,7 @@ jobs:
             $SUDO docker compose ps
 
       - name: Vérifier que le site répond
+        if: steps.secrets.outputs.ok == 'true'
         continue-on-error: true
         run: |
           for i in $(seq 1 18); do
