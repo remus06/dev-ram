@@ -28,8 +28,15 @@ jobs:
             cd "$d"
             npm install --no-fund
             node -e 'const l=require("./package-lock.json").packages;console.log("::notice::'"$d"' next="+l["node_modules/next"].version+" sharp="+((l["node_modules/sharp"]||{}).version))'
-            npm audit --omit=dev --audit-level=high
-            NEXT_TELEMETRY_DISABLED=1 npm run build
+            if ! npm audit --omit=dev --audit-level=high > audit.txt 2>&1; then
+              grep -E "^[a-z@].*  |Severity|fix available|vulnerabilit" audit.txt | head -20 | while read -r l; do echo "::error::$d audit: $l"; done
+              exit 1
+            fi
+            if ! NEXT_TELEMETRY_DISABLED=1 npm run build > build.txt 2>&1; then
+              tail -25 build.txt | while read -r l; do echo "::error::$d build: $l"; done
+              exit 1
+            fi
+            rm -f audit.txt build.txt
             cd ..
           done
       - name: Committer les lockfiles
@@ -40,3 +47,4 @@ jobs:
           git diff --cached --quiet && echo "::notice::Lockfiles déjà à jour" && exit 0
           git commit -m "Lockfiles : Next.js 16.4.1, sharp corrigé (généré par CI)"
           git push
+# relance 2026-10-25T19:10:50
