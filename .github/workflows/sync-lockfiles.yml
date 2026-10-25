@@ -27,6 +27,7 @@ jobs:
             echo "== $d"
             cd "$d"
             npm install --no-fund
+            npm audit fix --no-fund || true
             node -e 'const l=require("./package-lock.json").packages;console.log("::notice::'"$d"' next="+l["node_modules/next"].version+" sharp="+((l["node_modules/sharp"]||{}).version))'
             if ! npm audit --omit=dev --audit-level=high > audit.txt 2>&1; then
               grep -E "^[a-z@].*  |Severity|fix available|vulnerabilit" audit.txt | head -20 | while read -r l; do echo "::error::$d audit: $l"; done
@@ -47,4 +48,4 @@ jobs:
           git diff --cached --quiet && echo "::notice::Lockfiles déjà à jour" && exit 0
           git commit -m "Lockfiles : Next.js 16.4.1, sharp corrigé (généré par CI)"
           git push
-# relance 2026-10-25T19:10:50
+# relance 2026-10-25T19:11:51
